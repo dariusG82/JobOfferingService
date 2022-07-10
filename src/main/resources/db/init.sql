@@ -1,0 +1,2 @@
+INSERT INTO JOB_DETAILS (id, description, salary) VALUES (1, 'Very good job', 2025);
+INSERT INTO JOB (jobid, job_title, job_type, deadline, details_id) VALUES ('00000000-0000-0000-0000-000000000001', 'Java', 'Coding','2022-07-05', 1);
