@@ -26,4 +26,12 @@ public class Job {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "details_id", referencedColumnName = "id")
     private JobDetails jobDetails;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "recruiter_id", referencedColumnName = "id")
+    private Recruiter recruiter;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "freelancer_id", referencedColumnName = "id")
+    private Freelancer freelancer;
 }
