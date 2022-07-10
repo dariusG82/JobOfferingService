@@ -29,6 +29,12 @@
 <div th:if="${jobs.empty}">
     <h1>No jobs found</h1>
 </div>
+<div>
+    <form method="GET" th:action="@{/jobs/search}" class="form-inline">
+        <input name="title" th:value="${param.title}">
+        <button th:text="search">Search</button>
+    </form>
+</div>
 <table th:if="${not jobs.empty}" class="table table-striped" style="border: blue 1px solid">
     <thead>
     <tr>

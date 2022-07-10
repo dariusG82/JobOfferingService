@@ -70,6 +70,14 @@ public class JobController {
         return "redirect:/jobs";
     }
 
+    @GetMapping("/search")
+    public String search(@RequestParam(required = false) String title, Model model){
+
+        model.addAttribute("jobs", jobService.searchByJobTitle(title));
+
+        return "jobs";
+    }
+
     @ExceptionHandler(JobNotFoundException.class)
     public String productNotFound(JobNotFoundException e, Model model) {
 
