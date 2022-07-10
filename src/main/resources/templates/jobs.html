@@ -65,6 +65,8 @@
         <td th:text="${job.jobType}">Atsiskaitymas</td>
         <td th:text="${job.deadline}">2022-07-30</td>
         <td th:text="*{job.jobDetails.salary}">10000.00</td>
+        <td th:text="${job.recruiter.appUser.emailAddress}">some.email@gmail.com</td>
+        <td th:text="${job.recruiter.appUser.phoneNumber}">+370 333 33333</td>
         <td th:text="*{job.jobDetails.description}">Lorem ipsum :) Lorem ipsum :) Lorem ipsum :) Lorem ipsum :)</td>
         <td>
             <button>
