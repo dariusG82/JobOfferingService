@@ -10,29 +10,24 @@
 <h1 class="text-center">Job details</h1>
 <form method="post" th:object="${job}">
     <div class="mb-3">
-        <label class="form-label" th:text="'JobTitle'">
-            <input class="form-control" th:field="*{jobTitle}">
-        </label>
+        <label class="form-label" th:text="'JobTitle'"></label>
+        <input class="form-control" th:field="*{jobTitle}">
     </div>
     <div class="mb-3">
-        <label class="form-label" th:text="'JobType'">
-            <input class="form-control" th:field="*{jobType}">
-        </label>
+        <label class="form-label" th:text="'JobType'"></label>
+        <input class="form-control" th:field="*{jobType}">
     </div>
     <div class="mb-3">
-        <label class="form-label" th:text="'deadlline'">
-            <input class="form-control" th:field="*{deadline}">
-        </label>
+        <label class="form-label" th:text="'deadlline'"></label>
+        <input class="form-control" th:field="*{deadline}">
     </div>
     <div class="mb-3">
-        <label class="form-label" th:text="'details.salary'">
-            <input class="form-control" th:field="*{jobDetails.salary}">
-        </label>
+        <label class="form-label" th:text="'details.salary'"></label>
+        <input class="form-control" th:field="*{jobDetails.salary}">
     </div>
     <div class="mb-3">
-        <label class="form-label" th:text="'description'">
-            <textarea class="form-control" th:field="*{jobDetails.description}"></textarea>
-        </label>
+        <label class="form-label" th:text="'description'"></label>
+        <textarea class="form-control" th:field="*{jobDetails.description}"></textarea>
     </div>
     <div class="d-md-flex justify-content-md-center">
         <button type="submit">

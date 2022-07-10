@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class JobService {
@@ -19,5 +21,20 @@ public class JobService {
 
     public void addNewJob(Job job) {
         jobRepository.save(job);
+    }
+
+    public void updateJob(Job job, UUID id) {
+        job.setJobID(id);
+        jobRepository.save(job);
+    }
+
+    public Job deleteJobById(UUID id) {
+        Job jobToDelete = getJobById(id);
+        jobRepository.delete(jobToDelete);
+        return jobToDelete;
+    }
+
+    public Job getJobById(UUID id) {
+        return jobRepository.findById(id).orElse(null);
     }
 }

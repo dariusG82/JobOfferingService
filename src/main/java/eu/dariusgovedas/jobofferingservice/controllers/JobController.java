@@ -9,8 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.UUID;
 
 @Controller
 @AllArgsConstructor
@@ -42,5 +45,33 @@ public class JobController {
         String message = "Job " + job.getJobTitle() + " successfully created";
 
         return "jobs";
+    }
+
+    @GetMapping("/{id}")
+    public String openJobForm(@PathVariable UUID id, Model model){
+
+        model.addAttribute("job", jobService.getJobById(id));
+
+        return "jobForm";
+    }
+
+    @PostMapping("/{id}")
+    public String updateJob(@PathVariable UUID id, Job job, Model model){
+
+        jobService.updateJob(job, id);
+
+        model.addAttribute("message", String.format("Job '%s' successfully updated", job.getJobTitle()));
+
+        return getJobs(null, model);
+    }
+
+    @PostMapping("/{id}/delete")
+    public String deleteJob(@PathVariable UUID id, Model model){
+
+        Job job = jobService.deleteJobById(id);
+
+        model.addAttribute("message", String.format("Job '%s' successfully deleted", job.getJobTitle()));
+
+        return getJobs(null, model);
     }
 }
