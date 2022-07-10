@@ -33,7 +33,25 @@
     <thead>
     <tr>
         <th>Title</th>
+        <th>
+            <span>Type</span>
+            <a th:with="ascending=${jobs.sort.getOrderFor('jobType')?.direction?.name() eq 'ASC'}"
+               th:href="@{''(sort='jobType,' + ${ascending ? 'DESC' : 'ASC'} + ',ignoreCase')}">
+                <i class="fa-solid"
+                   th:classappend="${ascending ? 'fa-arrow-up-z-a' : 'fa-arrow-down-a-z'}"
+                ></i>
+            </a>
+        </th>
         <th>Deadline</th>
+        <th>
+            <span>Salary</span>
+            <a th:with="ascending=${jobs.sort.getOrderFor('jobDetails.salary')?.direction?.name() eq 'ASC'}"
+               th:href="@{''(sort='jobDetails.salary,' + ${ascending ? 'DESC' : 'ASC'})}">
+                <i class="fa-solid"
+                   th:classappend="${ascending ? 'fa-arrow-up-9-1' : 'fa-arrow-down-1-9'}"
+                ></i>
+            </a>
+        </th>
         <th>Contact eMail address</th>
         <th>Contact PhoneNumber</th>
         <th>Job description</th>
