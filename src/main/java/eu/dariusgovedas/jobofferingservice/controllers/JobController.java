@@ -1,6 +1,6 @@
 package eu.dariusgovedas.jobofferingservice.controllers;
 
-import eu.dariusgovedas.jobofferingservice.JobNotFoundException;
+import eu.dariusgovedas.jobofferingservice.exceptions.JobNotFoundException;
 import eu.dariusgovedas.jobofferingservice.entities.Job;
 import eu.dariusgovedas.jobofferingservice.services.JobService;
 import lombok.AllArgsConstructor;
@@ -8,10 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.UUID;
@@ -50,11 +47,7 @@ public class JobController {
     @GetMapping("/{id}")
     public String openJob(@PathVariable UUID id, Model model) {
 
-        Job job = jobService.getJobById(id);
-        if(job == null){
-            throw new JobNotFoundException(id);
-        }
-        model.addAttribute("job", job);
+        model.addAttribute("job", jobService.getJobById(id));
         return "jobForm";
     }
 
@@ -75,5 +68,14 @@ public class JobController {
         redirectAttributes.addAttribute("message", String.format("Job '%s' successfully deleted", job.getJobTitle()));
 
         return "redirect:/jobs";
+    }
+
+    @ExceptionHandler(JobNotFoundException.class)
+    public String productNotFound(JobNotFoundException e, Model model) {
+
+        model.addAttribute("messageCode", e.getMessage());
+        model.addAttribute("productId", e.getJobID());
+
+        return "error/productNotFoundPage";
     }
 }
