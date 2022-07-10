@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Jobs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet" />
+</head>
+<ul class="nav justify-content-center">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Jobs Board</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Login</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Register</a>
+    </li>
+</ul>
+<body class="container" style="background-color: #EAFFFD">
+<div class="d-md-flex justify-content-md-center">
+    <h1>My Job's Board</h1>
+</div>
+<table th:if="${not jobs.empty}" class="table table-striped" style="border: blue 1px solid">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Deadline</th>
+        <th>Contact eMail address</th>
+        <th>Contact PhoneNumber</th>
+        <th>Job description</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="job : ${jobs}">
+        <td th:text="${job.jobTitle}">Projektas</td>
+        <td th:text="${job.jobType}">Atsiskaitymas</td>
+        <td th:text="${job.deadline}">2022-07-30</td>
+        <td th:text="${job.jobDetails.salary}">10000.00</td>
+        <td th:text="*{job.jobDetails.description}">Lorem ipsum :) Lorem ipsum :) Lorem ipsum :) Lorem ipsum :)</td>
+        <td>
+            <button>
+                <a th:href="@{/jobs/{id}(id=${job.jobID})}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen"
+                         viewBox="0 0 16 16">
+                        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                    </svg>
+                </a>
+            </button>
+        </td>
+        <td>
+            <form th:action="@{/jobs/{id}/delete(id=${job.jobID})}" method="post">
+
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd"
+                              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                </button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="d-md-flex justify-content-md-center">
+    <form th:action="@{/jobs/create}" method="post">
+        <button>
+            <span>Create new Job</span>
+            <i class="fa-solid fa-upload"></i>
+        </button>
+    </form>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+</body>
+</html>
