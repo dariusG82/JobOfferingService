@@ -23,6 +23,12 @@
 <div class="d-md-flex justify-content-md-center">
     <h1>My Job's Board</h1>
 </div>
+<div th:if="${message ne null}" class="alert alert-success" role="alert">
+    <span th:text="${message}"></span>
+</div>
+<div th:if="${jobs.empty}">
+    <h1>No jobs found</h1>
+</div>
 <table th:if="${not jobs.empty}" class="table table-striped" style="border: blue 1px solid">
     <thead>
     <tr>
