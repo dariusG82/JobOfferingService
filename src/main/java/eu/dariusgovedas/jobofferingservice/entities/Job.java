@@ -24,6 +24,6 @@ public class Job {
     private String deadline;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "details_id")
+    @JoinColumn(name = "details_id", referencedColumnName = "id")
     private JobDetails jobDetails;
 }

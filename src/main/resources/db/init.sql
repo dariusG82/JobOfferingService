@@ -1,2 +1,14 @@
 INSERT INTO JOB_DETAILS (id, description, salary) VALUES (1, 'Very good job', 2025);
 INSERT INTO JOB (jobid, job_title, job_type, deadline, details_id) VALUES ('00000000-0000-0000-0000-000000000001', 'Java', 'Coding','2022-07-05', 1);
+INSERT INTO JOB_DETAILS (id, description, salary) VALUES (2, 'Very good job', 4025);
+INSERT INTO JOB (jobid, job_title, job_type, deadline, details_id) VALUES ('00000000-0000-0000-0000-000000000003', 'Java', 'Coding','2022-08-05', 2);
+INSERT INTO JOB_DETAILS (id, description, salary) VALUES (3, 'Very good job', 6025);
+INSERT INTO JOB (jobid, job_title, job_type, deadline, details_id) VALUES ('00000000-0000-0000-0000-000000000002', 'Java', 'Coding','2022-09-05', 3);
+INSERT INTO JOB_DETAILS (id, description, salary) VALUES (4, 'Very good job', 3355);
+INSERT INTO JOB (jobid, job_title, job_type, deadline, details_id) VALUES ('00000000-0000-0000-0000-000000000004', 'C++', 'Coding','2022-10-05', 4);
+INSERT INTO JOB_DETAILS (id, description, salary) VALUES (5, 'Very good job', 2225);
+INSERT INTO JOB (jobid, job_title, job_type, deadline, details_id) VALUES ('00000000-0000-0000-0000-000000000005', 'Java', 'Coding','2022-11-05', 5);
+INSERT INTO JOB_DETAILS (id, description, salary) VALUES (6, 'good job', 3025);
+INSERT INTO JOB (jobid, job_title, job_type, deadline, details_id) VALUES ('00000000-0000-0000-0000-000000000006', 'Java', 'Coding','2022-12-05', 6);
+INSERT INTO JOB_DETAILS (id, description, salary) VALUES (7, 'Very job', 525);
+INSERT INTO JOB (jobid, job_title, job_type, deadline, details_id) VALUES ('00000000-0000-0000-0000-000000000007', 'Kotlin', 'Coding','2023-01-05', 7);

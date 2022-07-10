@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +23,7 @@ public class JobController {
 
     private final JobService jobService;
 
-    @GetMapping()
+    @GetMapping
     public String getJobs(Pageable pageable, Model model) {
 
         Page<Job> jobs = jobService.getJobs(pageable);
@@ -40,16 +39,16 @@ public class JobController {
     }
 
     @PostMapping("/create")
-    public String createNewJob(Job job, RedirectAttributes redirectAttributes) {
+    public String createJob(Job job, RedirectAttributes redirectAttributes) {
 
-        jobService.addNewJob(job);
+        jobService.createJob(job);
         String message = "Job " + job.getJobTitle() + " successfully created";
-        redirectAttributes.addAttribute("jobs", message);
+        redirectAttributes.addFlashAttribute("jobs", message);
         return "redirect:/jobs";
     }
 
     @GetMapping("/{id}")
-    public String openJobForm(@PathVariable UUID id, Model model) {
+    public String openJob(@PathVariable UUID id, Model model) {
 
         Job job = jobService.getJobById(id);
         if(job == null){

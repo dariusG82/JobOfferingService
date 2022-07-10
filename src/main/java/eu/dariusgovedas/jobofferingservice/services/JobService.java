@@ -19,9 +19,11 @@ public class JobService {
         return jobRepository.findAll(pageable);
     }
 
-    public void addNewJob(Job job) {
+    public void createJob(Job job) {
+
         UUID jobId = UUID.randomUUID();
         job.setJobID(jobId);
+
         jobRepository.save(job);
     }
 

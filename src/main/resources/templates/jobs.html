@@ -46,7 +46,7 @@
         <td th:text="${job.jobTitle}">Projektas</td>
         <td th:text="${job.jobType}">Atsiskaitymas</td>
         <td th:text="${job.deadline}">2022-07-30</td>
-        <td th:text="${job.jobDetails.salary}">10000.00</td>
+        <td th:text="*{job.jobDetails.salary}">10000.00</td>
         <td th:text="*{job.jobDetails.description}">Lorem ipsum :) Lorem ipsum :) Lorem ipsum :) Lorem ipsum :)</td>
         <td>
             <button>
@@ -74,10 +74,34 @@
     </tr>
     </tbody>
 </table>
+<ul class="pagination"
+    th:with="order=${jobs.sort.sorted ? jobs.sort.iterator().next() : null},
+                 ignoreCase=${order ne null and order.ignoreCase ? 'ignoreCase' : ''},
+                 orderParam=${order ne null ? order.property + ',' + order.direction.name() + ',' + ignoreCase : null}">
+    <li class="page-item"
+        th:classappend="${jobs.hasPrevious() ? '' : 'disabled'}">
+        <a class="page-link" th:href="@{''(page=${jobs.number - 1}, sort=${orderParam})}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+    </li>
+
+    <li th:each="page : ${#numbers.sequence(1, jobs.totalPages)}" class="page-item"
+        th:classappend="${jobs.number == page - 1 ? 'active' : ''}">
+        <a th:href="@{''(page=${page - 1}, sort=${orderParam})}"
+           th:text="${page}" class="page-link">1</a>
+    </li>
+
+    <li class="page-item"
+        th:classappend="${jobs.hasNext() ? '' : 'disabled'}">
+        <a class="page-link" th:href="@{''(page=${jobs.number + 1}, sort=${orderParam})}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>
+</ul>
 
 <div class="d-md-flex justify-content-md-center">
-    <form th:action="@{/jobs/create}" method="post">
-        <button>
+    <form th:action="@{/jobs/create}" method="get">
+        <button >
             <span>Create new Job</span>
             <i class="fa-solid fa-upload"></i>
         </button>
