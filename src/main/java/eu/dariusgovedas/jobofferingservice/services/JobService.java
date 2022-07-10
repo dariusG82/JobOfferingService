@@ -20,6 +20,8 @@ public class JobService {
     }
 
     public void addNewJob(Job job) {
+        UUID jobId = UUID.randomUUID();
+        job.setJobID(jobId);
         jobRepository.save(job);
     }
 
