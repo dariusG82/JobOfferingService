@@ -2,123 +2,119 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="fragments/layout(title=#{jobsPage.title}, content=~{:: #main})">
 <div id="main">
-<div class="d-md-flex justify-content-md-center">
-    <h1 th:text="#{jobsPage.tableTitle}">My Job's Board</h1>
-</div>
-<div th:if="${message ne null}" class="alert alert-success" role="alert">
-    <span th:text="${message}"></span>
-</div>
-<div th:if="${jobs.empty}">
-    <h1>No jobs found</h1>
-</div>
-<div>
-    <form method="GET" th:action="@{/jobs/search}" class="form-inline">
-        <input name="title" th:value="${param.title}">
-        <button th:text="search">Search</button>
-    </form>
-</div>
-<table th:if="${not jobs.empty}" class="table table-striped">
-    <thead>
-    <tr>
-        <th th:text="#{jobsPage.jobTitle}">Title</th>
-        <th>
-            <span th:text="#{jobsPage.jobType}">Type</span>
-            <a th:with="ascending=${jobs.sort.getOrderFor('jobType')?.direction?.name() eq 'ASC'}"
-               th:href="@{''(sort='jobType,' + ${ascending ? 'DESC' : 'ASC'} + ',ignoreCase')}">
-                <i class="fa-solid"
-                   th:classappend="${ascending ? 'fa-arrow-up-z-a' : 'fa-arrow-down-a-z'}"
-                ></i>
-            </a>
-        </th>
-        <th th:text="#{jobsPage.jobDeadline}">Deadline</th>
-        <th>
-            <span th:text="#{jobsPage.salary}">Salary</span>
-            <a th:with="ascending=${jobs.sort.getOrderFor('jobDetails.salary')?.direction?.name() eq 'ASC'}"
-               th:href="@{''(sort='jobDetails.salary,' + ${ascending ? 'DESC' : 'ASC'})}">
-                <i class="fa-solid"
-                   th:classappend="${ascending ? 'fa-arrow-up-9-1' : 'fa-arrow-down-1-9'}"
-                ></i>
-            </a>
-        </th>
-        <th th:text="#{jobsPage.contactEmail}">Contact eMail address</th>
-        <th th:text="#{jobsPage.contactPhone}">Contact PhoneNumber</th>
-        <th th:text="#{jobsPage.jobDescription}">Job description</th>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="job : ${jobs}">
-        <td th:text="${job.jobTitle}">Projektas</td>
-        <td th:text="${job.jobType}">Atsiskaitymas</td>
-        <td th:text="${job.deadline}">2022-07-30</td>
-        <td th:text="*{job.jobDetails.salary}">10000.00</td>
-        <td th:text="${job.recruiter.appUser.emailAddress}">some.email@gmail.com</td>
-        <td th:text="${job.recruiter.appUser.phoneNumber}">+370 333 33333</td>
-        <td th:text="*{job.jobDetails.description}">Lorem ipsum :) Lorem ipsum :) Lorem ipsum :) Lorem ipsum :)</td>
-        <td>
-            <button>
-                <a th:href="@{/jobs/{id}(id=${job.jobID})}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen"
-                         viewBox="0 0 16 16">
-                        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
-                    </svg>
+    <div class="d-md-flex justify-content-md-center">
+        <h1 th:text="#{jobsPage.tableTitle}">My Job's Board</h1>
+    </div>
+    <div th:if="${message ne null}" class="alert alert-success" role="alert">
+        <span th:text="${message}"></span>
+    </div>
+    <div th:if="${jobs.empty}">
+        <h1>No jobs found</h1>
+    </div>
+    <div>
+        <form method="GET" th:action="@{/jobs/search}" class="form-inline">
+            <input name="title" th:value="${param.title}">
+            <button th:text="search">Search</button>
+        </form>
+    </div>
+    <table th:if="${not jobs.empty}" class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{jobsPage.jobTitle}">Title</th>
+            <th>
+                <span th:text="#{jobsPage.jobType}">Type</span>
+                <a th:with="ascending=${jobs.sort.getOrderFor('jobType')?.direction?.name() eq 'ASC'}"
+                   th:href="@{''(sort='jobType,' + ${ascending ? 'DESC' : 'ASC'} + ',ignoreCase')}">
+                    <i class="fa-solid"
+                       th:classappend="${ascending ? 'fa-arrow-up-z-a' : 'fa-arrow-down-a-z'}"
+                    ></i>
                 </a>
-            </button>
-        </td>
-        <td>
-            <form th:action="@{/jobs/{id}/delete(id=${job.jobID})}" method="post">
-
+            </th>
+            <th th:text="#{jobsPage.jobDeadline}">Deadline</th>
+            <th>
+                <span th:text="#{jobsPage.salary}">Salary</span>
+                <a th:with="ascending=${jobs.sort.getOrderFor('jobDetails.salary')?.direction?.name() eq 'ASC'}"
+                   th:href="@{''(sort='jobDetails.salary,' + ${ascending ? 'DESC' : 'ASC'})}">
+                    <i class="fa-solid"
+                       th:classappend="${ascending ? 'fa-arrow-up-9-1' : 'fa-arrow-down-1-9'}"
+                    ></i>
+                </a>
+            </th>
+            <th th:text="#{jobsPage.contactEmail}">Contact eMail address</th>
+            <th th:text="#{jobsPage.contactPhone}">Contact PhoneNumber</th>
+            <th th:text="#{jobsPage.jobDescription}">Job description</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="job : ${jobs}">
+            <td th:text="${job.jobTitle}">Projektas</td>
+            <td th:text="${job.jobType}">Atsiskaitymas</td>
+            <td th:text="${job.deadline}">2022-07-30</td>
+            <td th:text="*{job.jobDetails.salary}">10000.00</td>
+            <td th:text="${job.recruiter.appUser.emailAddress}">some.email@gmail.com</td>
+            <td th:text="${job.recruiter.appUser.phoneNumber}">+370 333 33333</td>
+            <td th:text="*{job.jobDetails.description}">Lorem ipsum :) Lorem ipsum :) Lorem ipsum :) Lorem ipsum :)</td>
+            <td>
                 <button>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-trash" viewBox="0 0 16 16">
-                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                        <path fill-rule="evenodd"
-                              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                    </svg>
+                    <a th:href="@{/jobs/{id}(id=${job.jobID})}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-pen"
+                             viewBox="0 0 16 16">
+                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                        </svg>
+                    </a>
                 </button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<ul class="pagination"
-    th:with="order=${jobs.sort.sorted ? jobs.sort.iterator().next() : null},
+            </td>
+            <td>
+                <form th:action="@{/jobs/{id}/delete(id=${job.jobID})}" method="post">
+
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd"
+                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <ul class="pagination-custom"
+        th:with="order=${jobs.sort.sorted ? jobs.sort.iterator().next() : null},
                  ignoreCase=${order ne null and order.ignoreCase ? 'ignoreCase' : ''},
                  orderParam=${order ne null ? order.property + ',' + order.direction.name() + ',' + ignoreCase : null}">
-    <li class="page-item"
-        th:classappend="${jobs.hasPrevious() ? '' : 'disabled'}">
-        <a class="page-link" th:href="@{''(page=${jobs.number - 1}, sort=${orderParam})}" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-        </a>
-    </li>
+        <li class="page-item"
+            th:classappend="${jobs.hasPrevious() ? '' : 'disabled'}">
+            <a class="page-link" th:href="@{''(page=${jobs.number - 1}, sort=${orderParam})}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
 
-    <li th:each="page : ${#numbers.sequence(1, jobs.totalPages)}" class="page-item"
-        th:classappend="${jobs.number == page - 1 ? 'active' : ''}">
-        <a th:href="@{''(page=${page - 1}, sort=${orderParam})}"
-           th:text="${page}" class="page-link">1</a>
-    </li>
+        <li th:each="page : ${#numbers.sequence(1, jobs.totalPages)}" class="page-item"
+            th:classappend="${jobs.number == page - 1 ? 'active' : ''}">
+            <a th:href="@{''(page=${page - 1}, sort=${orderParam})}"
+               th:text="${page}" class="page-link">1</a>
+        </li>
 
-    <li class="page-item"
-        th:classappend="${jobs.hasNext() ? '' : 'disabled'}">
-        <a class="page-link" th:href="@{''(page=${jobs.number + 1}, sort=${orderParam})}" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-        </a>
-    </li>
-</ul>
+        <li class="page-item"
+            th:classappend="${jobs.hasNext() ? '' : 'disabled'}">
+            <a class="page-link" th:href="@{''(page=${jobs.number + 1}, sort=${orderParam})}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
 
-<div class="d-md-flex justify-content-md-center">
-    <form th:action="@{/jobs/create}" method="get">
-        <button >
-            <span>Create new Job</span>
-            <i class="fa-solid fa-upload"></i>
-        </button>
-    </form>
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
+    <div class="d-md-flex justify-content-md-center">
+        <form th:action="@{/jobs/create}" method="get">
+            <button>
+                <span>Create new Job</span>
+                <i class="fa-solid fa-upload"></i>
+            </button>
+        </form>
+    </div>
 </div>
 </html>
