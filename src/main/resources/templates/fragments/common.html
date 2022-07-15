@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<header th:fragment="header"
+        class="p-3 background-dark text-primary-red mb-2">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a th:href="@{/}" class="d-flex align-items-center mb-2 mb-lg-0 text-primary-red text-decoration-none">
+                <img th:src="@{/images/logo.png}" height="20" width="20"/>
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li>
+                    <a th:href="@{/}" th:text="#{layout.menu.home}"
+                       th:classappend="${#httpServletRequest.requestURI eq '/' ? 'text-light-blue' : 'text-secondary-beige'}"
+                       class="nav-link-custom px-2">Home</a>
+                </li>
+                <li>
+                    <a th:href="@{/jobs}" th:text="#{layout.menu.jobs}"
+                       th:classappend="${#httpServletRequest.requestURI.startsWith('/jobs') ? 'text-light-blue' : 'text-secondary-beige'}"
+                       class="nav-link-custom px-2">Home</a>
+                </li>
+                <li>
+                    <a th:href="@{/about}" th:text="#{layout.menu.about}"
+                       th:classappend="${#httpServletRequest.requestURI eq '/about' ? 'text-light-blue' : 'text-secondary-beige'}"
+                       class="nav-link-custom px-2">About</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link-custom dropdown-toggle text-secondary-beige" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Language
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" th:href="@{''(lang='lt')}">
+                                <img th:src="@{/images/language_lt.png}" class="language-selector"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{''(lang='en')}">
+                                <img th:src="@{/images/language_en.png}" class="language-selector"/>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="text-end">
+                <button type="button" class="btn btn-login-register me-2" th:text="#{layout.menu.login}">Login</button>
+                <button type="button" class="btn btn-login-register" th:text="#{layout.menu.signUp}">Sign-up</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div th:fragment="successMessage(message)"
+     th:if="${message ne null}" class="alert alert-success" role="alert">
+    <span th:text="${message}"></span>
+</div>
+
+<footer th:fragment="footer"
+        class="footer mt-auto py-3 background-dark text-center">
+    <div class="container text-muted">
+        <div th:text="${companyInfo.name}"></div>
+        <div th:text="${companyInfo.address}"></div>
+        <div th:text="${companyInfo.bankInfo.bank}"></div>
+        <div th:text="${companyInfo.bankInfo.iban}"></div>
+    </div>
+</footer>
+
+
+
+</html>
