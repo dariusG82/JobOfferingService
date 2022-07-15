@@ -71,9 +71,9 @@ public class JobController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam(required = false) String title, Model model){
+    public String search(@RequestParam(required = false) String title, Pageable pageable, Model model){
 
-        model.addAttribute("jobs", jobService.searchByJobTitle(title));
+        model.addAttribute("jobs", jobService.searchByJobTitle(title, pageable));
 
         return "jobs";
     }

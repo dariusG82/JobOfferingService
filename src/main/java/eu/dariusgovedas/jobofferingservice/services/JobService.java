@@ -5,6 +5,7 @@ import eu.dariusgovedas.jobofferingservice.exceptions.JobNotFoundException;
 import eu.dariusgovedas.jobofferingservice.repositories.JobsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -42,10 +43,16 @@ public class JobService {
 
     public Job getJobById(UUID id) {
         return jobsRepository.findById(id)
-                .orElseThrow(() -> new JobNotFoundException("",null));
+                .orElseThrow(() -> new JobNotFoundException("", null));
     }
 
-    public List<Job> searchByJobTitle(String title) {
-        return jobsRepository.findByJobTitleContainingIgnoreCase(title);
+    public Page<Job> searchByJobTitle(String title, Pageable pageable) {
+        List<Job> jobs = jobsRepository.findByJobTitleContainingIgnoreCase(title);
+
+        if (jobs.isEmpty() && (title == null || title.isEmpty())) {
+            return getJobs(pageable);
+        }
+
+        return new PageImpl<>(jobs, pageable, jobs.size());
     }
 }
