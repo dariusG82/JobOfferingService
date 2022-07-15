@@ -9,12 +9,12 @@
         <span th:text="${message}"></span>
     </div>
     <div th:if="${jobs.empty}">
-        <h1>No jobs found</h1>
+        <h1 th:text="#{jobsPage.noJobsFound}">No jobs found</h1>
     </div>
     <div>
         <form method="GET" th:action="@{/jobs/search}" class="form-inline">
             <input name="title" th:value="${param.title}">
-            <button th:text="search">Search</button>
+            <button th:text="#{jobsPage.searchJob}">Search</button>
         </form>
     </div>
     <table th:if="${not jobs.empty}" class="table table-striped">
@@ -111,7 +111,7 @@
     <div class="d-md-flex justify-content-md-center">
         <form th:action="@{/jobs/create}" method="get">
             <button>
-                <span>Create new Job</span>
+                <span th:text="#{jobsPage.createNewJob}">Create new Job</span>
                 <i class="fa-solid fa-upload"></i>
             </button>
         </form>
