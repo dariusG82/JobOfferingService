@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="fragments/layout(title=#{jobsPage.title}, content=~{:: #main})">
+      th:replace="fragments/layout :: layout(#{jobsPage.title}, ~{:: #main})">
 <div id="main">
     <div class="d-md-flex justify-content-md-center">
         <h1 th:text="#{jobsPage.tableTitle}">My Job's Board</h1>

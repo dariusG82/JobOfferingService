@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="fragments/layout(title=#{aboutPage.title}, content=~{:: #main})">
+      th:replace="fragments/layout :: layout(#{aboutPage.title}, ~{:: #main})">
 <div id="main">
 
     <h1>ABOUT US PAGE</h1>
