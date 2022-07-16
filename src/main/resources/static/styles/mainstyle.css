@@ -16,6 +16,14 @@
     background-color: var(--dark-red);
 }
 
+.background-light {
+    background-color: var(--beige);
+}
+
+.background-blue {
+    background-color: var(--light-blue);
+}
+
 .nav-link-custom {
     display: block;
     padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
@@ -39,7 +47,7 @@
     cursor: default;
 }
 
-.btn-login-register {
+.btn-custom {
     --bs-btn-color: #000;
     --bs-btn-bg: var(--light-blue);
     --bs-btn-border-color: var(--dark-blue);
@@ -121,4 +129,8 @@
 .language-selector {
     height: 20px;
     width: 20px;
+}
+
+#flexRadioDefault1, #flexRadioDefault2{
+    display: none;
 }

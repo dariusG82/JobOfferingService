@@ -3,7 +3,41 @@
       th:replace="fragments/layout(title=#{indexPage.title}, content=~{:: #main})">
 <div id="main">
 
-<h1>INDEX PAGE</h1>
+    <div class="container py-4">
+
+        <div class="p-5 mb-4 background-light rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold" th:text="#{indexPage.mainTitle}">Main section Title</h1>
+                <p class="col-md-8 fs-4" th:text="#{loremIpsum25}">Content</p>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative text-dark-blue background-blue">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <h3 th:text="#{indexPage.recruiter}">FOR RECRUITERS</h3>
+                        <p class="card-text mb-auto" th:text="#{loremIpsum50}">Content</p>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <img th:src="@{/images/recruiter.jpeg}" width="150">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative text-dark-blue background-blue">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <h3 th:text="#{indexPage.freelancer}">FOR FREELANCERS</h3>
+                        <p class="card-text mb-auto" th:text="#{loremIpsum50}">Content</p>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <img th:src="@{/images/freelancer.png}" width="150">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 </html>
