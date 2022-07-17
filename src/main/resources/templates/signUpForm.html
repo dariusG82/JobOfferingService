@@ -2,47 +2,64 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="fragments/layout :: layout(#{signUp.title}, ~{:: #main})">
 <div id="main">
-    <form class="row g-3" method="POST" th:object="${appUser}">
-        <div class="col-md-6">
-            <label for="inputName" th:class="form-label"
-                   th:text="#{form.signUp.name}">Name</label>
-            <input th:class="form-control" id="inputName" th:field="*{name}">
+    <div id="login-block" class="card mb-3">
+        <div class="row g-0 d-flex align-items-center">
+            <div class="col-lg-4 d-none d-lg-flex">
+                <img th:src="@{/images/register.png}"
+                     class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5"/>
+            </div>
+            <div class="col-lg-8">
+                <div class="card-body py-5 px-md-5">
+
+                    <form class="row g-3" method="POST" th:object="${appUser}">
+                        <div class="col-md-6">
+                            <label for="inputName" th:class="form-label"
+                                   th:text="#{form.signUp.name}">Name</label>
+                            <input th:class="form-control" id="inputName" th:field="*{name}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputSurname" th:class="form-label"
+                                   th:text="#{form.signUp.surname}">Surname</label>
+                            <input th:class="form-control" id="inputSurname" th:field="*{surname}">
+                        </div>
+                        <div class="col-12">
+                            <label for="inputUsername" th:class="form-label"
+                                   th:text="#{form.signUp.username}">Username</label>
+                            <input type="text" class="form-control" id="inputUsername" th:field="*{username}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputPassword2" th:class="form-label"
+                                   th:text="#{form.password}">Password</label>
+                            <input type="password" class="form-control" id="inputPassword1" th:field="*{password}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputPassword2" class="form-label"
+                                   th:text="#{form.signUp.repeatPassword}">Repeat Password</label>
+                            <input type="password" class="form-control" id="inputPassword2">
+                        </div>
+                        <div class="col-12">
+                            <label for="inputEmail" class="form-label"
+                                   th:text="#{form.email}">Username</label>
+                            <input type="email" class="form-control" id="inputEmail" th:field="*{emailAddress}">
+                        </div>
+                        <div class="col-12">
+                            <label for="inputPhoneNumber" class="form-label"
+                                   th:text="#{form.signUp.phoneNumber}">Username</label>
+                            <input class="form-control" id="inputPhoneNumber" th:field="*{phoneNumber}">
+                        </div>
+                        <div class="col-12">
+                            <form th:action="@{/signUpForm}" method="post">
+                                <button class="btn btn-custom" th:text="#{form.signUp.button.submit}">Sign-up</button>
+                            </form>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-            <label for="inputSurname" th:class="form-label"
-                   th:text="#{form.signUp.surname}">Surname</label>
-            <input th:class="form-control" id="inputSurname" th:field="*{surname}">
-        </div>
-        <div class="col-12">
-            <label for="inputUsername" th:class="form-label"
-                   th:text="#{form.signUp.username}">Username</label>
-            <input type="text" class="form-control" id="inputUsername" th:field="*{username}">
-        </div>
-        <div class="col-md-6">
-            <label for="inputPassword2" th:class="form-label"
-                   th:text="#{form.signUp.password}">Password</label>
-            <input type="password" class="form-control" id="inputPassword1" th:field="*{password}">
-        </div>
-        <div class="col-md-6">
-            <label for="inputPassword2" class="form-label"
-                   th:text="#{form.signUp.repeatPassword}">Repeat Password</label>
-            <input type="password" class="form-control" id="inputPassword2">
-        </div>
-        <div class="col-12">
-            <label for="inputEmail" class="form-label"
-                   th:text="#{form.signUp.email}">Username</label>
-            <input type="email" class="form-control" id="inputEmail" th:field="*{emailAddress}">
-        </div>
-        <div class="col-12">
-            <label for="inputPhoneNumber" class="form-label"
-                   th:text="#{form.signUp.phoneNumber}">Username</label>
-            <input class="form-control" id="inputPhoneNumber" th:field="*{phoneNumber}">
-        </div>
-        <div class="col-12">
-            <form th:action="@{/signUpForm}" method="post">
-                <button class="btn btn-custom" th:text="#{form.signUp.button.submit}">Sign-up</button>
-            </form>
-        </div>
-    </form>
+    </div>
+
+
+
 </div>
 </html>
