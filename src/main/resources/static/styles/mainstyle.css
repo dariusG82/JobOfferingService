@@ -7,6 +7,10 @@
 
     --bs-nav-link-font-size: null;
 }
+main{
+    min-height: 80vh;
+    padding-bottom: 20px;
+}
 
 .table {
     border: var(--dark-blue) 1px solid;
@@ -119,11 +123,10 @@
 }
 
 .footer {
-    position: absolute;
-    bottom: 0;
+    position: sticky;
+    bottom: auto;
     width: 100%;
     height: 120px;
-    color: var(--light-blue);
 }
 
 .language-selector {

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <header th:fragment="header"
-        class="p-3 background-dark text-primary-red mb-2">
+        class="background-dark text-primary-red">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a th:href="@{/}" class="d-flex align-items-center mb-2 mb-lg-0 text-primary-red text-decoration-none">
@@ -61,14 +61,46 @@
     <span th:text="${message}"></span>
 </div>
 
-<footer th:fragment="footer"
-        class="footer mt-auto py-3 background-dark  text-center">
-    <div class="container text-secondary-beige">
-        <div th:text="${#locale}"></div>
-        <div th:text="#{company.name}"></div>
-        <div th:text="#{company.address}"></div>
-        <div th:text="#{company.bank}"></div>
-        <div th:text="#{company.iban}"></div>
+<!--<footer th:fragment="footer"-->
+<!--        class="footer mt-auto py-3 background-dark  text-center">-->
+<!--    <div class="container text-secondary-beige">-->
+<!--        <div th:text="#{company.name}"></div>-->
+<!--        <div th:text="#{company.address}"></div>-->
+<!--        <div th:text="#{company.bank}"></div>-->
+<!--        <div th:text="#{company.iban}"></div>-->
+<!--    </div>-->
+<!--</footer>-->
+
+<footer th:fragment="footer" class="footer background-dark">
+    <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-center py-3 ">
+            <div class="col-md-4 d-flex align-items-center">
+                <div class="container text-secondary-beige">
+                    <div th:text="#{company.name}"></div>
+                    <div th:text="#{company.address}"></div>
+                    <div th:text="#{company.bank}"></div>
+                    <div th:text="#{company.iban}"></div>
+                </div>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a class="text-secondary-beige" href="#">
+                    <svg class="bi" width="24" height="24">
+                        <use xlink:href="#twitter"></use>
+                    </svg>
+                </a></li>
+                <li class="ms-3"><a class="text-secondary-beige" href="#">
+                    <svg class="bi" width="24" height="24">
+                        <use xlink:href="#instagram"></use>
+                    </svg>
+                </a></li>
+                <li class="ms-3"><a class="text-secondary-beige" href="#">
+                    <svg class="bi" width="24" height="24">
+                        <use xlink:href="#facebook"></use>
+                    </svg>
+                </a></li>
+            </ul>
+        </div>
     </div>
 </footer>
 
