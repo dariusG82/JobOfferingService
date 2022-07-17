@@ -17,8 +17,8 @@ main{
     --bs-card-border-color: none;
 }
 
-.table {
-    border: var(--dark-blue) 1px solid;
+.page-block {
+    margin-top: 20px;
 }
 
 .background-dark {
@@ -141,4 +141,8 @@ main{
 
 #flexRadioDefault1, #flexRadioDefault2{
     display: none;
+}
+
+#formEdit, #formDelete {
+    border-style: none;
 }

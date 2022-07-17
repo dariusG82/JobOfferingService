@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="fragments/layout :: layout(#{jobsPage.title}, ~{:: #main})">
 <div id="main">
-    <div class="container d-md-flex justify-content-md-center">
+    <div class="container d-md-flex justify-content-md-center page-block text-primary-red">
         <h1 th:text="#{jobsPage.tableTitle}">My Job's Board</h1>
     </div>
     <div th:if="${message ne null}" class="alert alert-success" role="alert">
@@ -11,21 +11,21 @@
     <div th:if="${jobs.empty}">
         <h1 th:text="#{jobsPage.noJobsFound}">No jobs found</h1>
     </div>
-    <div>
+    <div class="page-block">
         <form method="GET" th:action="@{/jobs/search}" class="form-inline">
             <input name="title" th:value="${param.title}">
             <button th:text="#{jobsPage.searchJob}">Search</button>
         </form>
     </div>
-    <table th:if="${not jobs.empty}" class="table table-striped">
-        <thead>
+    <table th:if="${not jobs.empty}" class="table align-middle mb-0 bg-white page-block">
+        <thead class="bg-light">
         <tr>
             <th th:text="#{jobsPage.jobTitle}">Title</th>
             <th>
                 <span th:text="#{jobsPage.jobType}">Type</span>
                 <a th:with="ascending=${jobs.sort.getOrderFor('jobType')?.direction?.name() eq 'ASC'}"
                    th:href="@{''(sort='jobType,' + ${ascending ? 'DESC' : 'ASC'} + ',ignoreCase')}">
-                    <i class="fa-solid"
+                    <i class="fa-solid" style="color: var(--dark-red)"
                        th:classappend="${ascending ? 'fa-arrow-up-z-a' : 'fa-arrow-down-a-z'}"
                     ></i>
                 </a>
@@ -35,7 +35,7 @@
                 <span th:text="#{jobsPage.salary}">Salary</span>
                 <a th:with="ascending=${jobs.sort.getOrderFor('jobDetails.salary')?.direction?.name() eq 'ASC'}"
                    th:href="@{''(sort='jobDetails.salary,' + ${ascending ? 'DESC' : 'ASC'})}">
-                    <i class="fa-solid"
+                    <i class="fa-solid" style="color: var(--dark-red)"
                        th:classappend="${ascending ? 'fa-arrow-up-9-1' : 'fa-arrow-down-1-9'}"
                     ></i>
                 </a>
@@ -57,9 +57,9 @@
             <td th:text="${job.recruiter.appUser.phoneNumber}">+370 333 33333</td>
             <td th:text="*{job.jobDetails.description}">Lorem ipsum :) Lorem ipsum :) Lorem ipsum :) Lorem ipsum :)</td>
             <td>
-                <button>
+                <button id="formEdit">
                     <a th:href="@{/jobs/{id}(id=${job.jobID})}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--dark-red)"
                              class="bi bi-pen"
                              viewBox="0 0 16 16">
                             <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
@@ -70,8 +70,8 @@
             <td>
                 <form th:action="@{/jobs/{id}/delete(id=${job.jobID})}" method="post">
 
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    <button id="formDelete">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--dark-red)"
                              class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                             <path fill-rule="evenodd"
@@ -83,7 +83,7 @@
         </tr>
         </tbody>
     </table>
-    <ul class="pagination-custom"
+    <ul class="pagination-custom page-block"
         th:with="order=${jobs.sort.sorted ? jobs.sort.iterator().next() : null},
                  ignoreCase=${order ne null and order.ignoreCase ? 'ignoreCase' : ''},
                  orderParam=${order ne null ? order.property + ',' + order.direction.name() + ',' + ignoreCase : null}">
@@ -108,11 +108,11 @@
         </li>
     </ul>
 
-    <div class="d-md-flex justify-content-md-center">
+    <div class="d-md-flex justify-content-md-center page-block">
         <form th:action="@{/jobs/create}" method="get">
             <button>
                 <span th:text="#{jobsPage.createNewJob}">Create new Job</span>
-                <i class="fa-solid fa-upload"></i>
+                <i class="fa-solid fa-upload" style="color:var(--dark-red)"></i>
             </button>
         </form>
     </div>
