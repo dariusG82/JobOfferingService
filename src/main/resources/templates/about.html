@@ -2,10 +2,57 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="fragments/layout :: layout(#{aboutPage.title}, ~{:: #main})">
 <div id="main">
-
-    <div class="container">
-        <h1>ABOUT US PAGE</h1>
+    <div th:if="${freelancers.empty}">
+        <h1 th:text="#{jobsPage.noJobsFound}">No jobs found</h1>
     </div>
+    <table th:if="${not freelancers.empty}" class="table align-middle mb-0 bg-white page-block">
+        <thead class="bg-light">
+        <tr>
+            <th th:text="#{jobsPage.freelancer.name}">Name</th>
+            <th th:text="#{jobsPage.freelancer.surname}">Surname</th>
+            <th th:text="#{jobsPage.freelancer.username}">Username</th>
+            <th th:text="#{jobsPage.freelancer.email}">Email</th>
+            <th th:text="#{jobsPage.freelancer.jobsFinished}">Jobs Done</th>
+            <th th:text="#{jobsPage.freelancer.rating}">Rate</th>
+            <th th:text="#{jobsPage.freelancer.totalIncome}">Income</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="freelancer : ${freelancers}">
+            <td th:text="${freelancer.name}">Namer</td>
+            <td th:text="${freelancer.surname}">Surnamer</td>
+            <td th:text="${freelancer.username}">Does</td>
+            <td th:text="*{freelancer.emailAddress}">email@mail.com</td>
+            <td th:text="${freelancer.freelancer.jobsFinished}">25</td>
+            <td th:text="${freelancer.freelancer.rating}">+5.5</td>
+            <td th:text="*{freelancer.freelancer.totalIncome}">2525.50</td>
+        </tr>
+        </tbody>
+    </table>
+<!--    <ul class="pagination-custom page-block"-->
+<!--        th:with="order=${freelancers.sort.sorted ? freelancers.sort.iterator().next() : null},-->
+<!--                 ignoreCase=${order ne null and order.ignoreCase ? 'ignoreCase' : ''},-->
+<!--                 orderParam=${order ne null ? order.property + ',' + order.direction.name() + ',' + ignoreCase : null}">-->
+<!--        <li class="page-item"-->
+<!--            th:classappend="${freelancers.hasPrevious() ? '' : 'disabled'}">-->
+<!--            <a class="page-link" th:href="@{''(page=${jobs.number - 1}, sort=${orderParam})}" aria-label="Previous">-->
+<!--                <span aria-hidden="true">&laquo;</span>-->
+<!--            </a>-->
+<!--        </li>-->
+
+<!--        <li th:each="page : ${#numbers.sequence(1, freelancers.totalPages)}" class="page-item"-->
+<!--            th:classappend="${freelancers.number == page - 1 ? 'active' : ''}">-->
+<!--            <a th:href="@{''(page=${page - 1}, sort=${orderParam})}"-->
+<!--               th:text="${page}" class="page-link">1</a>-->
+<!--        </li>-->
+
+<!--        <li class="page-item"-->
+<!--            th:classappend="${freelancers.hasNext() ? '' : 'disabled'}">-->
+<!--            <a class="page-link" th:href="@{''(page=${freelancers.number + 1}, sort=${orderParam})}" aria-label="Next">-->
+<!--                <span aria-hidden="true">&raquo;</span>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--    </ul>-->
 
 
 </div>

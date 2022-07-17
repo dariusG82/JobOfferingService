@@ -13,10 +13,10 @@ public class NavigationController {
         return "index";
     }
 
-    @GetMapping("/about")
-    public String getAboutUsPage(){
-        return "about";
-    }
+//    @GetMapping("/about")
+//    public String getAboutUsPage(){
+//        return "about";
+//    }
 
     @GetMapping("/login")
     public String getLoginPage(){
