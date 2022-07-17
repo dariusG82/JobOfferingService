@@ -11,6 +11,24 @@
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li>
+                    <a th:href="@{/}" th:text="#{layout.menu.home}"
+                       th:classappend="${#httpServletRequest.requestURI eq '/' ? 'text-light-blue' : 'text-secondary-beige'}"
+                       class="nav-link-custom px-2">Home</a>
+                </li>
+                <li>
+                    <a th:href="@{/jobs}" th:text="#{layout.menu.jobs}"
+                       th:classappend="${#httpServletRequest.requestURI.startsWith('/jobs') ? 'text-light-blue' : 'text-secondary-beige'}"
+                       class="nav-link-custom px-2">Home</a>
+                </li>
+                <li>
+                    <a th:href="@{/about}" th:text="#{layout.menu.about}"
+                       th:classappend="${#httpServletRequest.requestURI eq '/about' ? 'text-light-blue' : 'text-secondary-beige'}"
+                       class="nav-link-custom px-2">About</a>
+                </li>
+            </ul>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                         <label for="flexRadioDefault1"></label>
@@ -31,27 +49,14 @@
                         </a>
                     </div>
                 </li>
-                <li>
-                    <a th:href="@{/}" th:text="#{layout.menu.home}"
-                       th:classappend="${#httpServletRequest.requestURI eq '/' ? 'text-light-blue' : 'text-secondary-beige'}"
-                       class="nav-link-custom px-2">Home</a>
-                </li>
-                <li>
-                    <a th:href="@{/jobs}" th:text="#{layout.menu.jobs}"
-                       th:classappend="${#httpServletRequest.requestURI.startsWith('/jobs') ? 'text-light-blue' : 'text-secondary-beige'}"
-                       class="nav-link-custom px-2">Home</a>
-                </li>
-                <li>
-                    <a th:href="@{/about}" th:text="#{layout.menu.about}"
-                       th:classappend="${#httpServletRequest.requestURI eq '/about' ? 'text-light-blue' : 'text-secondary-beige'}"
-                       class="nav-link-custom px-2">About</a>
-                </li>
             </ul>
 
             <div class="text-end">
                 <button type="button" class="btn btn-custom me-2" th:text="#{layout.menu.login}">Login</button>
                 <button type="button" class="btn btn-custom" th:text="#{layout.menu.signUp}">Sign-up</button>
             </div>
+
+
         </div>
     </div>
 </header>
@@ -60,16 +65,6 @@
      th:if="${message ne null}" class="alert alert-success" role="alert">
     <span th:text="${message}"></span>
 </div>
-
-<!--<footer th:fragment="footer"-->
-<!--        class="footer mt-auto py-3 background-dark  text-center">-->
-<!--    <div class="container text-secondary-beige">-->
-<!--        <div th:text="#{company.name}"></div>-->
-<!--        <div th:text="#{company.address}"></div>-->
-<!--        <div th:text="#{company.bank}"></div>-->
-<!--        <div th:text="#{company.iban}"></div>-->
-<!--    </div>-->
-<!--</footer>-->
 
 <footer th:fragment="footer" class="footer background-dark">
     <div class="container">
@@ -84,20 +79,14 @@
             </div>
 
             <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                <li class="ms-3"><a class="text-secondary-beige" href="#">
-                    <svg class="bi" width="24" height="24">
-                        <use xlink:href="#twitter"></use>
-                    </svg>
+                <li class="ms-3"><a class="text-secondary-beige" th:href="#{footer.linkedin}">
+                    <img th:src="@{/images/networks_linkedin.png}">
                 </a></li>
-                <li class="ms-3"><a class="text-secondary-beige" href="#">
-                    <svg class="bi" width="24" height="24">
-                        <use xlink:href="#instagram"></use>
-                    </svg>
+                <li class="ms-3"><a class="text-secondary-beige" th:href="#{footer.youtube}">
+                    <img th:src="@{/images/networks_youtube.png}">
                 </a></li>
-                <li class="ms-3"><a class="text-secondary-beige" href="#">
-                    <svg class="bi" width="24" height="24">
-                        <use xlink:href="#facebook"></use>
-                    </svg>
+                <li class="ms-3"><a class="text-secondary-beige" th:href="#{footer.facebook}">
+                    <img th:src="@{/images/networks_facebook.png}">
                 </a></li>
             </ul>
         </div>
