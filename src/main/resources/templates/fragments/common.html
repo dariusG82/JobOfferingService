@@ -52,8 +52,14 @@
             </ul>
 
             <div class="text-end">
-                <button type="button" class="btn btn-custom me-2" th:text="#{layout.menu.login}">Login</button>
-                <button type="button" class="btn btn-custom" th:text="#{layout.menu.signUp}">Sign-up</button>
+                <form th:action="@{/login}" method="get">
+                    <button class="btn btn-custom me-2" th:text="#{layout.menu.login}">Login</button>
+                </form>
+            </div>
+            <div class="text-end">
+                <form th:action="@{/signUpForm}" method="get">
+                    <button class="btn btn-custom" th:text="#{layout.menu.signUp}">Sign-up</button>
+                </form>
             </div>
 
 
