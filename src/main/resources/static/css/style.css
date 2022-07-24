@@ -143,6 +143,6 @@ main{
     display: none;
 }
 
-#formEdit, #formDelete {
+#formEdit, #formDelete, #formApply {
     border-style: none;
 }
