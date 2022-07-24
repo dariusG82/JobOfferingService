@@ -83,7 +83,7 @@ public class JobController {
 
         redirectAttributes.addAttribute("message", String.format("Job '%s' successfully deleted", job.getJobTitle()));
 
-        return "redirect:/jobs";
+        return "redirect:/public/jobs";
     }
 
     @GetMapping("/public/jobs/search")
@@ -95,11 +95,11 @@ public class JobController {
     }
 
     @ExceptionHandler(JobNotFoundException.class)
-    public String productNotFound(JobNotFoundException e, Model model) {
+    public String jobNotFound(JobNotFoundException e, Model model) {
 
         model.addAttribute("messageCode", e.getMessage());
-        model.addAttribute("productId", e.getJobID());
+        model.addAttribute("jobId", e.getJobID());
 
-        return "error/productNotFoundPage";
+        return "error/jobNotFoundPage";
     }
 }

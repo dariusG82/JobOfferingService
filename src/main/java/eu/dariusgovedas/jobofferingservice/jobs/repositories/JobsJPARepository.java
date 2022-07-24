@@ -20,4 +20,10 @@ public interface JobsJPARepository extends JpaRepository <Job, UUID>, JobsReposi
 
     @Query("FROM Job j WHERE j.freelancer IS NOT NULL AND UPPER(j.jobTitle) LIKE %:title%")
     List<Job> findInAvailableJobs(@Param("title") String title);
+
+    @Query("FROM Job j WHERE j.recruiter.id=:id AND UPPER(j.jobTitle) LIKE %:title%")
+    List<Job> findInUserJobs(@Param("title") String title, @Param("id") Long id);
+
+    @Query("FROM Job j WHERE j.recruiter.id=:id")
+    List<Job> findInUserJobs(@Param("id") Long id);
 }

@@ -86,4 +86,14 @@ public class MockedRepository implements JobsRepository {
     public List<Job> findInAvailableJobs(String title) {
         return null;
     }
+
+    @Override
+    public List<Job> findInUserJobs(String toUpperCase, Long id) {
+        return null;
+    }
+
+    @Override
+    public List<Job> findInUserJobs(Long id) {
+        return null;
+    }
 }

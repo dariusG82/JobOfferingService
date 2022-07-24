@@ -22,4 +22,8 @@ public interface JobsRepository {
     void updateJob(UUID jobId, long freelancerId);
 
     List<Job> findInAvailableJobs(String title);
+
+    List<Job> findInUserJobs(String toUpperCase, Long id);
+
+    List<Job> findInUserJobs(Long id);
 }

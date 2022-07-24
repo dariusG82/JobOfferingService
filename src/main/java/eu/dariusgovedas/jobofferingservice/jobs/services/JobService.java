@@ -25,7 +25,7 @@ public class JobService {
             String userRole = user.getRole().getName();
             switch (userRole) {
                 case "RECRUITER" -> {
-                    return getRecruiterJobs(user, pageable);
+                    return getRecruiterJobs(pageable, user);
                 }
                 case "FREELANCER" -> {
                     return getAvailableJobs(pageable);
@@ -36,20 +36,6 @@ public class JobService {
             }
         }
         return getAllJobs(pageable);
-    }
-
-    private Page<Job> getRecruiterJobs(User user, Pageable pageable) {
-        List<Job> jobs = jobsRepository.findAll(pageable).stream()
-                .filter(job -> job.getRecruiter().getUser().getUsername().equals(user.getUsername()))
-                .toList();
-        return new PageImpl<>(jobs, pageable, jobs.size());
-    }
-
-    private Page<Job> getAvailableJobs(Pageable pageable) {
-        List<Job> jobs = jobsRepository.findAll(pageable).stream()
-                .filter(job -> job.getRecruiter().getUser().getFreelancer() == null)
-                .toList();
-        return new PageImpl<>(jobs, pageable, jobs.size());
     }
 
     public void createJob(Job job) {
@@ -85,13 +71,17 @@ public class JobService {
     }
 
     public Page<Job> searchByJobTitle(String title, Pageable pageable, User user) {
+
         if(title == null){
             title = "";
         }
 
         if(user != null && user.getFreelancer() != null){
-            List<Job> jobs = jobsRepository.findInAvailableJobs(title.toUpperCase());
-            return new PageImpl<>(jobs, pageable, jobs.size());
+            return getAvailableJobs(title, pageable);
+        }
+
+        if(user != null && user.getRecruiter() != null){
+            return getRecruiterJobs(title, pageable, user);
         }
 
         List<Job> jobs = jobsRepository.findByJobTitleContainingIgnoreCase(title);
@@ -100,6 +90,23 @@ public class JobService {
             return getJobs(user, pageable);
         }
 
+        return new PageImpl<>(jobs, pageable, jobs.size());
+    }
+
+    private PageImpl<Job> getAvailableJobs(Pageable pageable) {
+        return getAvailableJobs("", pageable);
+    }
+    private PageImpl<Job> getAvailableJobs(String title, Pageable pageable) {
+        List<Job> jobs = jobsRepository.findInAvailableJobs(title.toUpperCase());
+        return new PageImpl<>(jobs, pageable, jobs.size());
+    }
+
+    private PageImpl<Job> getRecruiterJobs(Pageable pageable, User user) {
+        return getRecruiterJobs("", pageable, user);
+    }
+
+    private PageImpl<Job> getRecruiterJobs(String title, Pageable pageable, User user) {
+        List<Job> jobs = jobsRepository.findInUserJobs(title.toUpperCase(), user.getRecruiter().getId());
         return new PageImpl<>(jobs, pageable, jobs.size());
     }
 
