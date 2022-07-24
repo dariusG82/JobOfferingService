@@ -76,4 +76,14 @@ public class MockedRepository implements JobsRepository {
         getIndex(job.getJobID())
                 .ifPresent(index -> jobsList.set(index, job));
     }
+
+    @Override
+    public void updateJob(UUID jobId, long freelancerId) {
+
+    }
+
+    @Override
+    public List<Job> findInAvailableJobs(String title) {
+        return null;
+    }
 }

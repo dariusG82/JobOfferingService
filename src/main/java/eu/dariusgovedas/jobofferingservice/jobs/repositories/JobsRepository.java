@@ -18,4 +18,8 @@ public interface JobsRepository {
     Optional<Job> findById(UUID id);
 
     List<Job> findByJobTitleContainingIgnoreCase(String title);
+
+    void updateJob(UUID jobId, long freelancerId);
+
+    List<Job> findInAvailableJobs(String title);
 }

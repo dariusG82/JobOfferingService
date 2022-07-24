@@ -3,12 +3,14 @@ package eu.dariusgovedas.jobofferingservice.jobs.services;
 import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
 import eu.dariusgovedas.jobofferingservice.jobs.exceptions.JobNotFoundException;
 import eu.dariusgovedas.jobofferingservice.jobs.repositories.JobsRepository;
+import eu.dariusgovedas.jobofferingservice.users.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,11 +20,37 @@ public class JobService {
 
     private final JobsRepository jobsRepository;
 
-    public Page<Job> getJobs(Pageable pageable) {
-        return jobsRepository.findAll(pageable);
+    public Page<Job> getJobs(User user, Pageable pageable) {
+        if(user != null){
+            String userRole = user.getRole().getName();
+            switch (userRole) {
+                case "RECRUITER" -> {
+                    return getRecruiterJobs(user, pageable);
+                }
+                case "FREELANCER" -> {
+                    return getAvailableJobs(pageable);
+                }
+                default -> {
+                    return getAllJobs(pageable);
+                }
+            }
+        }
+        return getAllJobs(pageable);
     }
 
+    private Page<Job> getRecruiterJobs(User user, Pageable pageable) {
+        List<Job> jobs = jobsRepository.findAll(pageable).stream()
+                .filter(job -> job.getRecruiter().getUser().getUsername().equals(user.getUsername()))
+                .toList();
+        return new PageImpl<>(jobs, pageable, jobs.size());
+    }
 
+    private Page<Job> getAvailableJobs(Pageable pageable) {
+        List<Job> jobs = jobsRepository.findAll(pageable).stream()
+                .filter(job -> job.getRecruiter().getUser().getFreelancer() == null)
+                .toList();
+        return new PageImpl<>(jobs, pageable, jobs.size());
+    }
 
     public void createJob(Job job) {
 
@@ -48,13 +76,36 @@ public class JobService {
                 .orElseThrow(() -> new JobNotFoundException("", null));
     }
 
-    public Page<Job> searchByJobTitle(String title, Pageable pageable) {
+    public Job addJobToFreelancer(UUID id, User user) {
+        Job jobToAdd = getJobById(id);
+        jobToAdd.setFreelancer(user.getFreelancer());
+        jobsRepository.updateJob(jobToAdd.getJobID(), jobToAdd.getFreelancer().getId());
+
+        return jobToAdd;
+    }
+
+    public Page<Job> searchByJobTitle(String title, Pageable pageable, User user) {
+        if(title == null){
+            title = "";
+        }
+
+        if(user != null && user.getFreelancer() != null){
+            List<Job> jobs = jobsRepository.findInAvailableJobs(title.toUpperCase());
+            return new PageImpl<>(jobs, pageable, jobs.size());
+        }
+
         List<Job> jobs = jobsRepository.findByJobTitleContainingIgnoreCase(title);
 
-        if (jobs.isEmpty() && (title == null || title.isEmpty())) {
-            return getJobs(pageable);
+        if (jobs.isEmpty() && title.isEmpty()) {
+            return getJobs(user, pageable);
         }
 
         return new PageImpl<>(jobs, pageable, jobs.size());
     }
+
+    private Page<Job> getAllJobs(Pageable pageable) {
+        return jobsRepository.findAll(pageable);
+    }
+
+
 }
