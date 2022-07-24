@@ -15,12 +15,11 @@ import java.util.UUID;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/jobs")
 public class JobController {
 
     private final JobService jobService;
 
-    @GetMapping
+    @GetMapping("/public/jobs")
     public String getJobs(Pageable pageable, Model model) {
 
         Page<Job> jobs = jobService.getJobs(pageable);
@@ -28,14 +27,14 @@ public class JobController {
         return "jobs";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/private/create")
     public String openJobForm(Model model) {
 
         model.addAttribute("job", new Job());
         return "jobForm";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/private/create")
     public String createJob(Job job, RedirectAttributes redirectAttributes) {
 
         jobService.createJob(job);
@@ -44,14 +43,14 @@ public class JobController {
         return "redirect:/jobs";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/private/{id}")
     public String openJob(@PathVariable UUID id, Model model) {
 
         model.addAttribute("job", jobService.getJobById(id));
         return "jobForm";
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/private/{id}")
     public String updateJob(@PathVariable UUID id, Job job, RedirectAttributes redirectAttributes) {
 
         jobService.updateJob(job, id);
@@ -60,7 +59,7 @@ public class JobController {
         return "redirect:/jobs";
     }
 
-    @PostMapping("/{id}/delete")
+    @PostMapping("/private/{id}/delete")
     public String deleteJob(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
 
         Job job = jobService.deleteJobById(id);
@@ -70,7 +69,7 @@ public class JobController {
         return "redirect:/jobs";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/public/search")
     public String search(@RequestParam(required = false) String title, Pageable pageable, Model model){
 
         model.addAttribute("jobs", jobService.searchByJobTitle(title, pageable));

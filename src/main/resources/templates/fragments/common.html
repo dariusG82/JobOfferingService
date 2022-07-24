@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <header th:fragment="header"
         class="background-dark text-primary-red">
@@ -16,12 +18,12 @@
                        class="nav-link-custom px-2">Home</a>
                 </li>
                 <li>
-                    <a th:href="@{/jobs}" th:text="#{layout.menu.jobs}"
+                    <a th:href="@{/public/jobs}" th:text="#{layout.menu.jobs}"
                        th:classappend="${#httpServletRequest.requestURI.startsWith('/jobs') ? 'text-light-blue' : 'text-secondary-beige'}"
                        class="nav-link-custom px-2">Home</a>
                 </li>
                 <li>
-                    <a th:href="@{/about}" th:text="#{layout.menu.about}"
+                    <a th:href="@{/public/about}" th:text="#{layout.menu.about}"
                        th:classappend="${#httpServletRequest.requestURI eq '/about' ? 'text-light-blue' : 'text-secondary-beige'}"
                        class="nav-link-custom px-2">About</a>
                 </li>
@@ -51,14 +53,23 @@
                 </li>
             </ul>
 
+            <th:block sec:authorize="isAnonymous()">
+                <div class="text-end">
+                    <form th:action="@{/public/login}" method="get">
+                        <button class="btn btn-custom me-2" th:text="#{layout.menu.login}">Login</button>
+                    </form>
+                </div>
+                <div class="text-end">
+                    <form th:action="@{/public/signUpForm}" method="get">
+                        <button class="btn btn-custom" th:text="#{layout.menu.signUp}">Sign-up</button>
+                    </form>
+                </div>
+            </th:block>
+
             <div class="text-end">
-                <form th:action="@{/login}" method="get">
-                    <button class="btn btn-custom me-2" th:text="#{layout.menu.login}">Login</button>
-                </form>
-            </div>
-            <div class="text-end">
-                <form th:action="@{/signUpForm}" method="get">
-                    <button class="btn btn-custom" th:text="#{layout.menu.signUp}">Sign-up</button>
+                <form th:action="@{/logout}" method="POST"
+                      sec:authorize="isAuthenticated()">
+                    <button class="btn btn-custom me-2" th:text="#{layout.menu.logout}">Logout</button>
                 </form>
             </div>
 

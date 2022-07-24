@@ -4,8 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -13,10 +18,9 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
-    private long id;
     private String username;
     private String password;
     private String name;
@@ -31,4 +35,32 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recruiter_id", referencedColumnName = "id")
     private Recruiter recruiter;
+
+    @ManyToOne
+    private Role role;
+
+    @Override
+    public Set<Role> getAuthorities() {
+        return Set.of(role);
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

@@ -24,12 +24,12 @@ public class NavigationController {
 //        return "about";
 //    }
 
-    @GetMapping("/login")
+    @GetMapping("/public/login")
     public String getLoginPage(){
-        return "login";
+        return "loginPage";
     }
 
-    @GetMapping("/signUpForm")
+    @GetMapping("/public/signUpForm")
     public String getSignUpPage(Model model){
 
         model.addAttribute("appUser", new User());
@@ -37,12 +37,11 @@ public class NavigationController {
         return "signUpForm";
     }
 
-    @GetMapping("/users")
+    @GetMapping("/private/users")
     public String getUsersPage(Pageable pageable, Model model){
 
         model.addAttribute("freelancers", userService.getFreelancers(pageable));
         model.addAttribute("recruiters", userService.getRecruiters(pageable));
-
 
         return "users";
     }

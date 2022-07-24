@@ -6,13 +6,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private UserJPARepository userJPARepository;
 
@@ -46,4 +49,14 @@ public class UserService {
                 .toList();
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        return userJPARepository.findUserWithRoles(username)
+                .orElseThrow();
+    }
+
+    public void createUser(User user) {
+        userJPARepository.save(user);
+    }
 }

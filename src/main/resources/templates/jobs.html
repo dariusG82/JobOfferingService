@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
       th:replace="fragments/layout :: layout(#{jobsPage.title}, ~{:: #main})">
 <div id="main">
     <div class="container d-md-flex justify-content-md-center page-block text-primary-red">
@@ -12,7 +13,7 @@
         <h1 th:text="#{jobsPage.noJobsFound}">No jobs found</h1>
     </div>
     <div class="page-block">
-        <form method="GET" th:action="@{/jobs/search}" class="form-inline">
+        <form method="GET" th:action="@{/public/jobs/search}" class="form-inline">
             <input name="title" th:value="${param.title}">
             <button th:text="#{jobsPage.searchJob}">Search</button>
         </form>
@@ -53,12 +54,12 @@
             <td th:text="${job.jobType}">Atsiskaitymas</td>
             <td th:text="${job.deadline}">2022-07-30</td>
             <td th:text="*{job.jobDetails.salary}">10000.00</td>
-            <td th:text="${job.recruiter.getUser.emailAddress}">some.email@gmail.com</td>
+            <td seth:text="${job.recruiter.getUser.emailAddress}">some.email@gmail.com</td>
             <td th:text="${job.recruiter.getUser.phoneNumber}">+370 333 33333</td>
             <td th:text="*{job.jobDetails.description}">Lorem ipsum :) Lorem ipsum :) Lorem ipsum :) Lorem ipsum :)</td>
             <td>
                 <button id="formEdit">
-                    <a th:href="@{/jobs/{id}(id=${job.jobID})}">
+                    <a th:href="@{/private/jobs/{id}(id=${job.jobID})}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--dark-red)"
                              class="bi bi-pen"
                              viewBox="0 0 16 16">
@@ -68,7 +69,7 @@
                 </button>
             </td>
             <td>
-                <form th:action="@{/jobs/{id}/delete(id=${job.jobID})}" method="post">
+                <form th:action="@{/private/jobs/{id}/delete(id=${job.jobID})}" method="post">
 
                     <button id="formDelete">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--dark-red)"
@@ -109,7 +110,7 @@
     </ul>
 
     <div class="d-md-flex justify-content-md-center page-block">
-        <form th:action="@{/jobs/create}" method="get">
+        <form th:action="@{/private/jobs/create}" method="get">
             <button>
                 <span th:text="#{jobsPage.createNewJob}">Create new Job</span>
                 <i class="fa-solid fa-upload" style="color:var(--dark-red)"></i>
