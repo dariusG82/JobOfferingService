@@ -1,6 +1,6 @@
-package eu.dariusgovedas.jobofferingservice.repositories;
+package eu.dariusgovedas.jobofferingservice.jobs.repositories;
 
-import eu.dariusgovedas.jobofferingservice.entities.Job;
+import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface JobsJPARepository extends JpaRepository <Job, UUID>, JobsRepository{
+public interface JobsJPARepository extends JpaRepository <Job, UUID>, JobsRepository {
     List<Job> findByJobTitleContainingIgnoreCase(String title);
 }

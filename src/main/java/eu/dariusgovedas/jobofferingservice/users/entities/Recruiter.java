@@ -1,5 +1,6 @@
-package eu.dariusgovedas.jobofferingservice.entities;
+package eu.dariusgovedas.jobofferingservice.users.entities;
 
+import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class Recruiter {
     private String businessName;
 
     @OneToOne(mappedBy = "recruiter")
-    private AppUser appUser;
+    private User user;
 
     @OneToMany(mappedBy = "recruiter")
     private Set<Job> jobs;

@@ -1,6 +1,6 @@
-package eu.dariusgovedas.jobofferingservice.repositories;
+package eu.dariusgovedas.jobofferingservice.jobs.repositories;
 
-import eu.dariusgovedas.jobofferingservice.entities.Job;
+import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

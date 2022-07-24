@@ -1,4 +1,4 @@
-package eu.dariusgovedas.jobofferingservice.entities;
+package eu.dariusgovedas.jobofferingservice.commons.entities;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package eu.dariusgovedas.jobofferingservice.exceptions;
+package eu.dariusgovedas.jobofferingservice.jobs.exceptions;
 
 import lombok.Getter;
 

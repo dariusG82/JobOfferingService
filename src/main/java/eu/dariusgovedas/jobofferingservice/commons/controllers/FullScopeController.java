@@ -1,6 +1,6 @@
-package eu.dariusgovedas.jobofferingservice.controllers;
+package eu.dariusgovedas.jobofferingservice.commons.controllers;
 
-import eu.dariusgovedas.jobofferingservice.entities.CompanyInfo;
+import eu.dariusgovedas.jobofferingservice.commons.entities.CompanyInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.web.bind.WebDataBinder;

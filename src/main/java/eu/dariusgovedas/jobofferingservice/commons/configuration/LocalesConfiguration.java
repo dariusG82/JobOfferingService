@@ -1,4 +1,4 @@
-package eu.dariusgovedas.jobofferingservice.configuration;
+package eu.dariusgovedas.jobofferingservice.commons.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,9 +13,8 @@ public class LocalesConfiguration implements WebMvcConfigurer {
 
     @Bean
     public LocaleResolver localeResolver() {
-        LocaleResolver localeResolver = new SessionLocaleResolver();
 
-        return localeResolver;
+        return new SessionLocaleResolver();
     }
 
     public LocaleChangeInterceptor localeChangeInterceptor(){

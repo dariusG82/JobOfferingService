@@ -1,8 +1,8 @@
-package eu.dariusgovedas.jobofferingservice.services;
+package eu.dariusgovedas.jobofferingservice.jobs.services;
 
-import eu.dariusgovedas.jobofferingservice.entities.Job;
-import eu.dariusgovedas.jobofferingservice.exceptions.JobNotFoundException;
-import eu.dariusgovedas.jobofferingservice.repositories.JobsRepository;
+import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
+import eu.dariusgovedas.jobofferingservice.jobs.exceptions.JobNotFoundException;
+import eu.dariusgovedas.jobofferingservice.jobs.repositories.JobsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

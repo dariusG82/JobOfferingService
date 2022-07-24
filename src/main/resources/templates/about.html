@@ -3,18 +3,18 @@
       th:replace="fragments/layout :: layout(#{aboutPage.title}, ~{:: #main})">
 <div id="main">
     <div th:if="${freelancers.empty}">
-        <h1 th:text="#{jobsPage.noJobsFound}">No jobs found</h1>
+        <h1 th:text="#{jobsPage.noJobsFound}">No freelancers found</h1>
     </div>
     <table th:if="${not freelancers.empty}" class="table align-middle mb-0 bg-white page-block">
         <thead class="bg-light">
         <tr>
-            <th th:text="#{jobsPage.freelancer.name}">Name</th>
-            <th th:text="#{jobsPage.freelancer.surname}">Surname</th>
-            <th th:text="#{jobsPage.freelancer.username}">Username</th>
-            <th th:text="#{jobsPage.freelancer.email}">Email</th>
-            <th th:text="#{jobsPage.freelancer.jobsFinished}">Jobs Done</th>
-            <th th:text="#{jobsPage.freelancer.rating}">Rate</th>
-            <th th:text="#{jobsPage.freelancer.totalIncome}">Income</th>
+            <th th:text="#{user.name}">Name</th>
+            <th th:text="#{user.surname}">Surname</th>
+            <th th:text="#{user.username}">Username</th>
+            <th th:text="#{user.email}">Email</th>
+            <th th:text="#{freelancer.jobsFinished}">Jobs Done</th>
+            <th th:text="#{freelancer.rating}">Rate</th>
+            <th th:text="#{freelancer.totalIncome}">Income</th>
         </tr>
         </thead>
         <tbody>

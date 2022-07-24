@@ -1,5 +1,6 @@
-package eu.dariusgovedas.jobofferingservice.entities;
+package eu.dariusgovedas.jobofferingservice.users.entities;
 
+import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class Freelancer {
     private BigDecimal totalIncome;
 
     @OneToOne(mappedBy = "freelancer")
-    private AppUser appUser;
+    private User user;
 
     @OneToMany(mappedBy = "freelancer")
     private Set<Job> jobs;

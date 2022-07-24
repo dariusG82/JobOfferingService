@@ -1,6 +1,6 @@
-package eu.dariusgovedas.jobofferingservice.controllers;
+package eu.dariusgovedas.jobofferingservice.commons.controllers;
 
-import eu.dariusgovedas.jobofferingservice.services.UserService;
+import eu.dariusgovedas.jobofferingservice.users.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -19,6 +19,7 @@ public class AboutController {
     public String getAbout(Pageable pageable, Model model){
 
         model.addAttribute("freelancers", userService.getFreelancers(pageable));
+        model.addAttribute("recruiters", userService.getRecruiters(pageable));
 
         return "about";
     }

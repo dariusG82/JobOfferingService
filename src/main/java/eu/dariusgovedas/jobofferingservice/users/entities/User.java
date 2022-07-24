@@ -1,4 +1,4 @@
-package eu.dariusgovedas.jobofferingservice.entities;
+package eu.dariusgovedas.jobofferingservice.users.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,8 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppUser {
+@Table(name = "users")
+public class User {
 
     @Id
     private long id;

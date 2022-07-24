@@ -1,5 +1,7 @@
-package eu.dariusgovedas.jobofferingservice.entities;
+package eu.dariusgovedas.jobofferingservice.jobs.entities;
 
+import eu.dariusgovedas.jobofferingservice.users.entities.Freelancer;
+import eu.dariusgovedas.jobofferingservice.users.entities.Recruiter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
