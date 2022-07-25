@@ -2,23 +2,20 @@ package eu.dariusgovedas.jobofferingservice.jobs.services;
 
 import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
 import eu.dariusgovedas.jobofferingservice.jobs.exceptions.JobNotFoundException;
-import eu.dariusgovedas.jobofferingservice.jobs.repositories.JobsRepository;
+import eu.dariusgovedas.jobofferingservice.jobs.repositories.JobsJPARepository;
 import eu.dariusgovedas.jobofferingservice.users.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class JobService {
 
-    private final JobsRepository jobsRepository;
+    private final JobsJPARepository jobsRepository;
 
     public Page<Job> getJobs(User user, Pageable pageable) {
         if(user != null){
@@ -38,10 +35,13 @@ public class JobService {
         return getAllJobs(pageable);
     }
 
-    public void createJob(Job job) {
+    public void createJob(Job job, User user) {
 
         UUID jobId = UUID.randomUUID();
+
         job.setJobID(jobId);
+        job.setRecruiter(user.getRecruiter());
+        job.setFreelancer(null);
 
         jobsRepository.save(job);
     }
@@ -87,21 +87,19 @@ public class JobService {
         return jobsRepository.findByJobTitleContainingIgnoreCase(title, pageable);
     }
 
-    private PageImpl<Job> getAvailableJobs(Pageable pageable) {
+    private Page<Job> getAvailableJobs(Pageable pageable) {
         return getAvailableJobs("", pageable);
     }
-    private PageImpl<Job> getAvailableJobs(String title, Pageable pageable) {
-        List<Job> jobs = jobsRepository.findInAvailableJobs(title.toUpperCase());
-        return new PageImpl<>(jobs, pageable, jobs.size());
+    private Page<Job> getAvailableJobs(String title, Pageable pageable) {
+        return jobsRepository.findInAvailableJobs(title.toUpperCase(), pageable);
     }
 
-    private PageImpl<Job> getRecruiterJobs(Pageable pageable, User user) {
+    private Page<Job> getRecruiterJobs(Pageable pageable, User user) {
         return getRecruiterJobs("", pageable, user);
     }
 
-    private PageImpl<Job> getRecruiterJobs(String title, Pageable pageable, User user) {
-        List<Job> jobs = jobsRepository.findInUserJobs(title.toUpperCase(), user.getRecruiter().getId());
-        return new PageImpl<>(jobs, pageable, jobs.size());
+    private Page<Job> getRecruiterJobs(String title, Pageable pageable, User user) {
+        return jobsRepository.findInUserJobs(title.toUpperCase(), user.getRecruiter().getId(), pageable);
     }
 
     private Page<Job> getAllJobs(Pageable pageable) {
