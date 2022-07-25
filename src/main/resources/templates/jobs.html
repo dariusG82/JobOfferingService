@@ -96,7 +96,10 @@
         </tr>
         </tbody>
     </table>
-    <div th:replace="fragments/common :: pagination">Pagination</div>
+    <div th:if="${jobs.totalPages > 1}">
+        <div th:replace="fragments/common :: pagination">Pagination</div>
+    </div>
+
 
     <div sec:authorize="hasRole('RECRUITER')" class="d-md-flex justify-content-md-center page-block">
         <form th:action="@{/private/jobs/create}" method="get">
