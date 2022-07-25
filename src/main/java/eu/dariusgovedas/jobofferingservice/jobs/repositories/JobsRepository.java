@@ -17,7 +17,7 @@ public interface JobsRepository {
 
     Optional<Job> findById(UUID id);
 
-    List<Job> findByJobTitleContainingIgnoreCase(String title);
+    Page<Job> findByJobTitleContainingIgnoreCase(String title, Pageable pageable);
 
     void updateJob(UUID jobId, long freelancerId);
 

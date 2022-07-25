@@ -84,13 +84,7 @@ public class JobService {
             return getRecruiterJobs(title, pageable, user);
         }
 
-        List<Job> jobs = jobsRepository.findByJobTitleContainingIgnoreCase(title);
-
-        if (jobs.isEmpty() && title.isEmpty()) {
-            return getJobs(user, pageable);
-        }
-
-        return new PageImpl<>(jobs, pageable, jobs.size());
+        return jobsRepository.findByJobTitleContainingIgnoreCase(title, pageable);
     }
 
     private PageImpl<Job> getAvailableJobs(Pageable pageable) {
@@ -113,6 +107,4 @@ public class JobService {
     private Page<Job> getAllJobs(Pageable pageable) {
         return jobsRepository.findAll(pageable);
     }
-
-
 }
