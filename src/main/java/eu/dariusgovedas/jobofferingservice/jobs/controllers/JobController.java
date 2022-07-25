@@ -38,13 +38,14 @@ public class JobController {
         return "jobForm";
     }
 
+    @PreAuthorize("hasRole('RECRUITER')")
     @PostMapping("/private/jobs/create")
-    public String createJob(Job job, RedirectAttributes redirectAttributes) {
+    public String createJob(Job job, RedirectAttributes redirectAttributes, @AuthenticationPrincipal User user) {
 
-        jobService.createJob(job);
+        jobService.createJob(job, user);
         String message = "Job " + job.getJobTitle() + " successfully created";
         redirectAttributes.addFlashAttribute("jobs", message);
-        return "redirect:/jobs";
+        return "redirect:/public/jobs";
     }
 
     @PreAuthorize("hasRole('RECRUITER')")
@@ -55,13 +56,14 @@ public class JobController {
         return "jobForm";
     }
 
+    @PreAuthorize("hasRole('RECRUITER')")
     @PostMapping("/private/jobs/{id}")
     public String updateJob(@PathVariable UUID id, Job job, RedirectAttributes redirectAttributes) {
 
         jobService.updateJob(job, id);
         redirectAttributes.addAttribute("message", String.format("Job '%s' successfully updated", job.getJobTitle()));
 
-        return "redirect:/jobs";
+        return "redirect:/public/jobs";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','RECRUITER')")
@@ -72,7 +74,7 @@ public class JobController {
 
         redirectAttributes.addAttribute("message", String.format("Job '%s' successfully added to '%s' job list", job.getJobTitle(), user.getUsername()));
 
-        return "redirect:/jobs";
+        return "redirect:/public/jobs";
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','RECRUITER')")
