@@ -1,45 +1,36 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Jobs Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-</head>
-<body class="container">
-<h1 class="text-center">Job details</h1>
-<form method="post" th:object="${job}">
-    <div class="mb-3">
-        <label class="form-label" th:text="'JobTitle'"></label>
-        <input class="form-control" th:field="*{jobTitle}">
-    </div>
-    <div class="mb-3">
-        <label class="form-label" th:text="'JobType'"></label>
-        <input class="form-control" th:field="*{jobType}">
-    </div>
-    <div class="mb-3">
-        <label class="form-label" th:text="'deadlline'"></label>
-        <input class="form-control" th:field="*{deadline}">
-    </div>
-    <div class="mb-3">
-        <label class="form-label" th:text="'Salary'"></label>
-        <input class="form-control" th:field="*{jobDetails.salary}">
-    </div>
-    <div class="mb-3">
-        <label class="form-label" th:text="'Job description'"></label>
-        <textarea class="form-control" th:field="*{jobDetails.description}"></textarea>
-    </div>
-    <div class="d-md-flex justify-content-md-center">
-        <button type="submit">
-            Save data
-            <i class="fa-solid fa-upload"></i>
-        </button>
-    </div>
-</form>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
-</body>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="fragments/layout :: layout(#{jobsPage.title}, ~{:: #main})">
+<div id="main" class="container">
+    <h1 class="text-center">Job details</h1>
+    <form method="post" th:object="${job}" th:action="@{/private/jobs/create}">
+        <div class="mb-3">
+            <label class="form-label" th:text="'JobTitle'"></label>
+            <input class="form-control" th:field="*{jobTitle}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" th:text="'JobType'"></label>
+            <input class="form-control" th:field="*{jobType}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" th:text="'deadlline'"></label>
+            <input class="form-control" th:field="*{deadline}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" th:text="'Salary'"></label>
+            <input class="form-control" th:field="*{jobDetails.salary}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" th:text="'Job description'"></label>
+            <textarea class="form-control" th:field="*{jobDetails.description}"></textarea>
+        </div>
+        <div class="d-md-flex justify-content-md-center">
+            <button sec:authorize="isAuthenticated()" type="submit">
+                Save data
+                <i class="fa-solid fa-upload"></i>
+            </button>
+        </div>
+    </form>
+</div>
 </html>
