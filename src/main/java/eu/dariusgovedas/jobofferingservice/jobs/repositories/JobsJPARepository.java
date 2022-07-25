@@ -28,4 +28,15 @@ public interface JobsJPARepository extends JpaRepository <Job, UUID> {
 
     Page<Job> findByJobTitleContainingIgnoreCase(String title, Pageable pageable);
 
+    @Modifying
+    @Query("UPDATE Job j " +
+            "SET j.jobTitle=:title, j.jobType=:type, j.deadline=:deadline, j.jobDetails.salary=:salary, j.jobDetails.description=:description " +
+            "WHERE j.jobID=:id")
+    void updateJob(
+            @Param("id") UUID jobID,
+            @Param("title") String jobTitle,
+            @Param("type") String jobType,
+            @Param("deadline") String deadline,
+            @Param("salary") BigDecimal salary,
+            @Param("description") String description);
 }

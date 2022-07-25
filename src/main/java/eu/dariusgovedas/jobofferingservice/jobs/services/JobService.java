@@ -48,7 +48,14 @@ public class JobService {
 
     public void updateJob(Job job, UUID id) {
         job.setJobID(id);
-        jobsRepository.save(job);
+        jobsRepository.updateJob(
+                job.getJobID(),
+                job.getJobTitle(),
+                job.getJobType(),
+                job.getDeadline(),
+                job.getJobDetails().getSalary(),
+                job.getJobDetails().getDescription()
+        );
     }
 
     public Job deleteJobById(UUID id) {
