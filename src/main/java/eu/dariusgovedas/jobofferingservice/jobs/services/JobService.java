@@ -26,7 +26,7 @@ public class JobService {
                     return getRecruiterJobs(pageable, user);
                 }
                 case "FREELANCER" -> {
-                    return getAvailableJobs(pageable);
+                    return getAvailableJobs(pageable, user);
                 }
                 default -> {
                     return getAllJobs(pageable);
@@ -82,7 +82,7 @@ public class JobService {
         }
 
         if(user != null && user.getFreelancer() != null){
-            return getAvailableJobs(title, pageable);
+            return getAvailableJobs(title, user.getFreelancer().getId(), pageable);
         }
 
         if(user != null && user.getRecruiter() != null){
@@ -92,11 +92,11 @@ public class JobService {
         return jobsRepository.findByJobTitleContainingIgnoreCase(title, pageable);
     }
 
-    private Page<Job> getAvailableJobs(Pageable pageable) {
-        return getAvailableJobs("", pageable);
+    private Page<Job> getAvailableJobs(Pageable pageable, User user) {
+        return getAvailableJobs("", user.getFreelancer().getId(), pageable);
     }
-    private Page<Job> getAvailableJobs(String title, Pageable pageable) {
-        return jobsRepository.findInAvailableJobs(title.toUpperCase(), pageable);
+    private Page<Job> getAvailableJobs(String title, long freelancerId, Pageable pageable) {
+        return jobsRepository.findInAvailableJobs(title.toUpperCase(), freelancerId, pageable);
     }
 
     private Page<Job> getRecruiterJobs(Pageable pageable, User user) {

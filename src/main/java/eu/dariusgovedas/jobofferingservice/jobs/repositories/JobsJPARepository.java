@@ -16,8 +16,8 @@ import java.util.UUID;
 @Repository
 public interface JobsJPARepository extends JpaRepository <Job, UUID> {
 
-    @Query("FROM Job j WHERE j.freelancer IS NOT NULL AND UPPER(j.jobTitle) LIKE %:title%")
-    Page<Job> findInAvailableJobs(@Param("title") String title, Pageable pageable);
+    @Query("FROM Job j WHERE j.freelancer IS NULL OR j.freelancer.id <> :id AND UPPER(j.jobTitle) LIKE %:title%")
+    Page<Job> findInAvailableJobs(@Param("title") String title, @Param("id") Long freelancerID, Pageable pageable);
 
     @Query("FROM Job j WHERE j.recruiter.id=:id AND UPPER(j.jobTitle) LIKE %:title%")
     Page<Job> findInUserJobs(@Param("title") String title, @Param("id") Long id, Pageable pageable);
