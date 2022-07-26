@@ -49,12 +49,12 @@ public class JobService {
 
     @Transactional
     public void updateJob(Job job, UUID id) {
-        Job job1 = getJobById(id);
-        job1.setJobTitle(job.getJobTitle());
-        job1.setJobType(job.getJobType());
-        job1.setDeadline(job.getDeadline());
-        job1.getJobDetails().setSalary(job.getJobDetails().getSalary());
-        job1.getJobDetails().setDescription(job.getJobDetails().getDescription());
+        Job oldJob = getJobById(id);
+        oldJob.setJobTitle(job.getJobTitle());
+        oldJob.setJobType(job.getJobType());
+        oldJob.setDeadline(job.getDeadline());
+        oldJob.getJobDetails().setSalary(job.getJobDetails().getSalary());
+        oldJob.getJobDetails().setDescription(job.getJobDetails().getDescription());
     }
 
     public Job deleteJobById(UUID id) {
@@ -71,7 +71,6 @@ public class JobService {
     public Job addJobToFreelancer(UUID id, User user) {
         Job jobToAdd = getJobById(id);
         jobToAdd.setFreelancer(user.getFreelancer());
-        jobsRepository.updateJob(jobToAdd.getJobID(), jobToAdd.getFreelancer().getId());
 
         return jobToAdd;
     }

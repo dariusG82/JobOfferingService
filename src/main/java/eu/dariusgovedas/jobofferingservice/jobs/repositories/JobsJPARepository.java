@@ -16,10 +16,6 @@ import java.util.UUID;
 @Repository
 public interface JobsJPARepository extends JpaRepository <Job, UUID> {
 
-    @Modifying
-    @Query("UPDATE Job j SET j.freelancer.id=:freelancerID WHERE j.jobID=:jobID")
-    void updateJob(@Param("jobID") UUID jobId, @Param("freelancerID") long freelancerID);
-
     @Query("FROM Job j WHERE j.freelancer IS NOT NULL AND UPPER(j.jobTitle) LIKE %:title%")
     Page<Job> findInAvailableJobs(@Param("title") String title, Pageable pageable);
 
@@ -27,16 +23,4 @@ public interface JobsJPARepository extends JpaRepository <Job, UUID> {
     Page<Job> findInUserJobs(@Param("title") String title, @Param("id") Long id, Pageable pageable);
 
     Page<Job> findByJobTitleContainingIgnoreCase(String title, Pageable pageable);
-
-    @Modifying
-    @Query("UPDATE Job j " +
-            "SET j.jobTitle=:title, j.jobType=:type, j.deadline=:deadline, j.jobDetails.salary=:salary, j.jobDetails.description=:description " +
-            "WHERE j.jobID=:id")
-    void updateJob(
-            @Param("id") UUID jobID,
-            @Param("title") String jobTitle,
-            @Param("type") String jobType,
-            @Param("deadline") String deadline,
-            @Param("salary") BigDecimal salary,
-            @Param("description") String description);
 }
