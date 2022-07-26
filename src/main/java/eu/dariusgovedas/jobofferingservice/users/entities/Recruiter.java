@@ -24,6 +24,20 @@ public class Recruiter {
     @OneToOne(mappedBy = "recruiter")
     private User user;
 
-    @OneToMany(mappedBy = "recruiter")
+    @OneToMany(
+            mappedBy = "recruiter",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private Set<Job> jobs;
+
+    public void addJob(Job job){
+        jobs.add(job);
+        job.setRecruiter(this);
+    }
+
+    public void removeJob(Job job){
+        jobs.remove(job);
+        job.setRecruiter(null);
+    }
 }

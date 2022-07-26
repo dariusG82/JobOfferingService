@@ -25,15 +25,13 @@ public class Job {
     private String jobType;
     private String deadline;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "details_id", referencedColumnName = "id")
+    @OneToOne
+    @JoinColumn(name = "details_id")
     private JobDetails jobDetails;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "recruiter_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Recruiter recruiter;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "freelancer_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Freelancer freelancer;
 }
