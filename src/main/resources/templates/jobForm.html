@@ -1,10 +1,9 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       th:replace="fragments/layout :: layout(#{jobsPage.title}, ~{:: #main})">
 <div id="main" class="container">
     <h1 class="text-center">Job details</h1>
-    <form method="post" th:object="${job}" th:action="@{/private/jobs/create}">
+    <form method="post" th:object="${job}" th:action="@{''}">
         <div class="mb-3">
             <label class="form-label" th:text="'JobTitle'"></label>
             <input class="form-control" th:field="*{jobTitle}">
@@ -26,7 +25,7 @@
             <textarea class="form-control" th:field="*{jobDetails.description}"></textarea>
         </div>
         <div class="d-md-flex justify-content-md-center">
-            <button sec:authorize="isAuthenticated()" type="submit">
+            <button type="submit">
                 Save data
                 <i class="fa-solid fa-upload"></i>
             </button>

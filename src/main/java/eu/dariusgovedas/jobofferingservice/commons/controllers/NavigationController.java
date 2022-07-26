@@ -24,11 +24,6 @@ public class NavigationController {
 //        return "about";
 //    }
 
-    @GetMapping("/public/login")
-    public String getLoginPage(){
-        return "loginPage";
-    }
-
     @GetMapping("/public/signUpForm")
     public String getSignUpPage(Model model){
 

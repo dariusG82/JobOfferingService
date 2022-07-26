@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Service
@@ -46,16 +47,14 @@ public class JobService {
         jobsRepository.save(job);
     }
 
+    @Transactional
     public void updateJob(Job job, UUID id) {
-        job.setJobID(id);
-        jobsRepository.updateJob(
-                job.getJobID(),
-                job.getJobTitle(),
-                job.getJobType(),
-                job.getDeadline(),
-                job.getJobDetails().getSalary(),
-                job.getJobDetails().getDescription()
-        );
+        Job job1 = getJobById(id);
+        job1.setJobTitle(job.getJobTitle());
+        job1.setJobType(job.getJobType());
+        job1.setDeadline(job.getDeadline());
+        job1.getJobDetails().setSalary(job.getJobDetails().getSalary());
+        job1.getJobDetails().setDescription(job.getJobDetails().getDescription());
     }
 
     public Job deleteJobById(UUID id) {

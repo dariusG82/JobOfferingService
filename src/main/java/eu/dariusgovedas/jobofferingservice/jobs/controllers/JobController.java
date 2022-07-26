@@ -32,7 +32,7 @@ public class JobController {
 
     @PreAuthorize("hasRole('RECRUITER')")
     @GetMapping("/private/jobs/create")
-    public String openJobForm(Model model) {
+    public String openJobForm(Model model, @AuthenticationPrincipal User user) {
 
         model.addAttribute("job", new Job());
         return "jobForm";
@@ -53,6 +53,7 @@ public class JobController {
     public String openJob(@PathVariable UUID id, Model model) {
 
         model.addAttribute("job", jobService.getJobById(id));
+
         return "jobForm";
     }
 
@@ -66,7 +67,7 @@ public class JobController {
         return "redirect:/public/jobs";
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN','RECRUITER')")
+    @PreAuthorize("hasRole('FREELANCER')")
     @PostMapping("/private/jobs/{id}/apply")
     public String applyToJob(@PathVariable UUID id, RedirectAttributes redirectAttributes, @AuthenticationPrincipal User user) {
 
