@@ -1,6 +1,7 @@
 package eu.dariusgovedas.jobofferingservice.jobs.services;
 
 import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
+import eu.dariusgovedas.jobofferingservice.jobs.enums.JobStatus;
 import eu.dariusgovedas.jobofferingservice.jobs.exceptions.JobNotFoundException;
 import eu.dariusgovedas.jobofferingservice.jobs.repositories.JobsJPARepository;
 import eu.dariusgovedas.jobofferingservice.users.entities.User;
@@ -26,14 +27,14 @@ public class JobService {
                     return getRecruiterJobs(pageable, user);
                 }
                 case "FREELANCER" -> {
-                    return getAvailableJobs(pageable, user);
+                    return getAvailableJobs(pageable);
                 }
-                default -> {
+                case "ADMIN" -> {
                     return getAllJobs(pageable);
                 }
             }
         }
-        return getAllJobs(pageable);
+        return getAvailableJobs(pageable);
     }
 
     public void createJob(Job job, User user) {
@@ -43,6 +44,7 @@ public class JobService {
         job.setJobID(jobId);
         job.setRecruiter(user.getRecruiter());
         job.setFreelancer(null);
+        job.setStatus(JobStatus.ACTIVE);
 
         jobsRepository.save(job);
     }
@@ -68,9 +70,11 @@ public class JobService {
                 .orElseThrow(() -> new JobNotFoundException("", null));
     }
 
+    @Transactional
     public Job addJobToFreelancer(UUID id, User user) {
         Job jobToAdd = getJobById(id);
         jobToAdd.setFreelancer(user.getFreelancer());
+        jobToAdd.setStatus(JobStatus.ACCEPTED);
 
         return jobToAdd;
     }
@@ -82,7 +86,7 @@ public class JobService {
         }
 
         if(user != null && user.getFreelancer() != null){
-            return getAvailableJobs(title, user.getFreelancer().getId(), pageable);
+            return getAvailableJobs(title, pageable);
         }
 
         if(user != null && user.getRecruiter() != null){
@@ -92,11 +96,11 @@ public class JobService {
         return jobsRepository.findByJobTitleContainingIgnoreCase(title, pageable);
     }
 
-    private Page<Job> getAvailableJobs(Pageable pageable, User user) {
-        return getAvailableJobs("", user.getFreelancer().getId(), pageable);
+    private Page<Job> getAvailableJobs(Pageable pageable) {
+        return getAvailableJobs("", pageable);
     }
-    private Page<Job> getAvailableJobs(String title, long freelancerId, Pageable pageable) {
-        return jobsRepository.findInAvailableJobs(title.toUpperCase(), freelancerId, pageable);
+    private Page<Job> getAvailableJobs(String title, Pageable pageable) {
+        return jobsRepository.findInAvailableJobs(title.toUpperCase(), pageable);
     }
 
     private Page<Job> getRecruiterJobs(Pageable pageable, User user) {
@@ -109,5 +113,11 @@ public class JobService {
 
     private Page<Job> getAllJobs(Pageable pageable) {
         return jobsRepository.findAll(pageable);
+    }
+
+    @Transactional
+    public void addJobRating(Job job, UUID id) {
+        Job oldJob = getJobById(id);
+        oldJob.setRating(job.getRating());
     }
 }
