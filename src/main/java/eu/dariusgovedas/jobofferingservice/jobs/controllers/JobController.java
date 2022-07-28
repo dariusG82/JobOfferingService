@@ -1,7 +1,7 @@
 package eu.dariusgovedas.jobofferingservice.jobs.controllers;
 
-import eu.dariusgovedas.jobofferingservice.jobs.exceptions.JobNotFoundException;
 import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
+import eu.dariusgovedas.jobofferingservice.jobs.exceptions.JobNotFoundException;
 import eu.dariusgovedas.jobofferingservice.jobs.services.JobService;
 import eu.dariusgovedas.jobofferingservice.users.entities.User;
 import lombok.AllArgsConstructor;
@@ -85,6 +85,24 @@ public class JobController {
         Job job = jobService.deleteJobById(id);
 
         redirectAttributes.addAttribute("message", String.format("Job '%s' successfully deleted", job.getJobTitle()));
+
+        return "redirect:/public/jobs";
+    }
+
+    @PreAuthorize("hasRole('RECRUITER')")
+    @GetMapping("/private/jobs/rate/{id}")
+    public String getRatingForm(@PathVariable UUID id, Model model, @AuthenticationPrincipal User user) {
+
+        model.addAttribute("job", jobService.getJobById(id));
+
+        return "ratingForm";
+    }
+
+    @PreAuthorize("hasRole('RECRUITER')")
+    @PostMapping("/private/jobs/rate/{id}")
+    public String rateJob(@PathVariable UUID id, Job job,  @AuthenticationPrincipal User user) {
+
+        jobService.addJobRating(job, id);
 
         return "redirect:/public/jobs";
     }

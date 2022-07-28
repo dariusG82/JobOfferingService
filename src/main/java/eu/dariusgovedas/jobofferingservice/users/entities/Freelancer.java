@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Set;
 
 @Entity
@@ -42,5 +43,22 @@ public class Freelancer {
     public void removeJob(Job job){
         jobs.remove(job);
         job.setFreelancer(null);
+    }
+
+    public BigDecimal getRating() {
+        calculateRating();
+        return rating;
+    }
+
+    public void calculateRating(){
+        BigDecimal totalRating = getTotalJobsRating();
+        this.rating = totalRating.divide(BigDecimal.valueOf(jobsFinished),2, RoundingMode.HALF_UP);
+    }
+
+    private BigDecimal getTotalJobsRating() {
+        return jobs.stream()
+                .filter(job -> job.getRating() != null)
+                .map(Job::getRating)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
