@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="fragments/layout :: layout(title=#{ratingForm.title}, content=~{:: #main})">
+
+<div id="main" sec:authorize="hasRole('RECRUITER')">
+    <div class="container">
+        <form method="post" th:object="${job}" th:action="@{''}" class="mt-5">
+            <div class="form-group">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="option1" name="option1" class="custom-control-input" value="1"
+                           th:field="*{rating}">
+                    <label class="custom-control-label" for="option1" th:text="#{ratingForm.one_star}">Option1</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="option2" name="option2" class="custom-control-input" value="2"
+                           th:field="*{rating}">
+                    <label class="custom-control-label" for="option2" th:text="#{ratingForm.two_stars}">Option2</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="option3" name="option3" class="custom-control-input" value="3"
+                           th:field="*{rating}">
+                    <label class="custom-control-label" for="option3" th:text="#{ratingForm.three_stars}">Option3</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="option4" name="option4" class="custom-control-input" value="4"
+                           th:field="*{rating}">
+                    <label class="custom-control-label" for="option4" th:text="#{ratingForm.four_stars}">Option4</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="option5" name="option5" class="custom-control-input" value="5"
+                           th:field="*{rating}">
+                    <label class="custom-control-label" for="option5" th:text="#{ratingForm.five_stars}">Option5</label>
+                </div>
+            </div>
+            <button class="btn btn-custom" type="submit">Submit form</button>
+        </form>
+
+    </div>
+</div>
+
+</html>
