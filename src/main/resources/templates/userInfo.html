@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="fragments/layout :: layout(#{userInfoPage.title}, ~{:: #main})">
+<div id="main">
+    <div class="container py-4">
+
+        <div class="p-5 mb-4 background-light rounded-3">
+            <div class="container-fluid py-5">
+                <table class="table align-middle mb-0 bg-transparent page-block">
+                    <thead class="bg-light">
+                    <tr>
+                        <th th:text="#{user.username}">Username</th>
+                        <th th:text="#{user.name}">Name</th>
+                        <th th:text="#{user.surname}">Surname
+                        <th th:text="#{user.email}">E-mail</th>
+                        <th th:text="#{user.phoneNumber}">PhoneNumber</th>
+                        <th th:text="#{userInfo.edit}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${user.username}">Projektas</td>
+                        <td th:text="${user.name}">2022-07-30</td>
+                        <th th:text="${user.surname}">Surname
+                        <th th:text="${user.emailAddress}">E-mail</th>
+                        <th th:text="${user.phoneNumber}">PhoneNumber</th>
+                        <td>
+                            <button id="formEdit">
+                                <a th:href="@{/private/user/{id}(id=${user.username})}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--dark-red)"
+                                         class="bi bi-pen"
+                                         viewBox="0 0 16 16">
+                                        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                    </svg>
+                                </a>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative text-dark-blue background-blue">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <h3 th:text="#{indexPage.recruiter}">FOR RECRUITERS</h3>
+                        <p class="card-text mb-auto" th:text="#{loremIpsum50}">Content</p>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <img th:src="@{/images/recruiter.jpeg}" width="150">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative text-dark-blue background-blue">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <h3 th:text="#{indexPage.freelancer}">FOR FREELANCERS</h3>
+                        <p class="card-text mb-auto" th:text="#{loremIpsum50}">Content</p>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <img th:src="@{/images/freelancer.png}" width="150">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</html>
