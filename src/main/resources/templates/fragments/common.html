@@ -22,9 +22,19 @@
                        th:classappend="${#httpServletRequest.requestURI.startsWith('/jobs') ? 'text-light-blue' : 'text-secondary-beige'}"
                        class="nav-link-custom px-2">Home</a>
                 </li>
-                <li>
-                    <a th:href="@{/public/about}" th:text="#{layout.menu.about}"
-                       th:classappend="${#httpServletRequest.requestURI eq '/about' ? 'text-light-blue' : 'text-secondary-beige'}"
+                <li sec:authorize="hasRole('FREELANCER')">
+                    <a th:href="@{/private/freelancer}" th:text="#{layout.menu.user}"
+                       th:classappend="${#httpServletRequest.requestURI eq '/freelancer' ? 'text-light-blue' : 'text-secondary-beige'}"
+                       class="nav-link-custom px-2">About</a>
+                </li>
+                <li sec:authorize="hasRole('RECRUITER')">
+                    <a th:href="@{/private/recruiter}" th:text="#{layout.menu.user}"
+                       th:classappend="${#httpServletRequest.requestURI eq '/recruiter' ? 'text-light-blue' : 'text-secondary-beige'}"
+                       class="nav-link-custom px-2">About</a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/private/admin}" th:text="#{layout.menu.admin}"
+                       th:classappend="${#httpServletRequest.requestURI eq '/admin' ? 'text-light-blue' : 'text-secondary-beige'}"
                        class="nav-link-custom px-2">About</a>
                 </li>
             </ul>
