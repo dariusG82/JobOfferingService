@@ -4,6 +4,7 @@ import eu.dariusgovedas.jobofferingservice.users.entities.User;
 import eu.dariusgovedas.jobofferingservice.users.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +19,6 @@ public class NavigationController {
     public String getIndexPage(){
         return "index";
     }
-
-//    @GetMapping("/about")
-//    public String getAboutUsPage(){
-//        return "about";
-//    }
 
     @GetMapping("/public/signUpForm")
     public String getSignUpPage(Model model){
@@ -39,5 +35,12 @@ public class NavigationController {
         model.addAttribute("recruiters", userService.getRecruiters(pageable));
 
         return "users";
+    }
+
+    @GetMapping("/private/user")
+    public String getFreelancerInfo(Model model, @AuthenticationPrincipal User user){
+        model.addAttribute("user", user);
+
+        return "userInfo";
     }
 }
