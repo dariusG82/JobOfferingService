@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Set;
@@ -21,8 +24,16 @@ public class Freelancer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @DecimalMin(value = "0")
     private int jobsFinished;
+
+    @DecimalMin(value = "0")
+    @DecimalMax(value = "5")
+    @Digits(integer = 1, fraction = 1)
     private BigDecimal rating;
+
+    @DecimalMin(value = "0")
+    @Digits(integer = 10, fraction = 2)
     private BigDecimal totalIncome;
 
     @OneToOne(mappedBy = "freelancer")

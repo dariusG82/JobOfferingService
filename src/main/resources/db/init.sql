@@ -29,7 +29,7 @@ VALUES ('business5', '{bcrypt}$2a$12$zvRYIg6I7nyxVWKT05vfm.43WhQT9IVD3RiXhuHEaeq
 INSERT INTO USERS (username, password, name, surname, email_address, phone_number, freelancer_id, recruiter_id, role_name)
 VALUES ('business6', '{bcrypt}$2a$12$4yC.0Uix4AsG8W.5fHfTyuf1u8Pu6IrVrNuZNOS7.wOa74.QlByUq', 'Svetlana', 'K', 'svet@gmail.com', '+370 655 00112', null, 3, 'RECRUITER');
 
-INSERT INTO JOB_DETAILS (description, salary, id)
+INSERT INTO JOB_DETAILS (description, salary, id,)
 VALUES ('Very good job', 2500.00, 1);
 INSERT INTO JOB (deadline, details_id, recruiter_id, freelancer_id, job_title, job_type, jobid)
 VALUES ('2022-05-01', 1, 1, 1, 'FasJob', 'Java', '00000000-0000-0000-0000-000000000001');

@@ -2,27 +2,32 @@
       xmlns:th="http://www.thymeleaf.org"
       th:replace="fragments/layout :: layout(#{jobsPage.title}, ~{:: #main})">
 <div id="main" class="container">
-    <h1 class="text-center">Job details</h1>
+    <h1 th:text="#{jobsForm.title}" class="text-center">Job details</h1>
     <form method="post" th:object="${job}" th:action="@{''}">
         <div class="mb-3">
-            <label class="form-label" th:text="'JobTitle'"></label>
-            <input class="form-control" th:field="*{jobTitle}">
+            <label class="form-label" th:text="#{jobsPage.jobTitle}" for="jobTitle"></label>
+            <input id="jobTitle" class="form-control" th:field="*{jobTitle}">
+            <div th:if="${#fields.hasErrors('jobTitle')}" th:errors="*{jobTitle}">Title field</div>
         </div>
         <div class="mb-3">
-            <label class="form-label" th:text="'JobType'"></label>
-            <input class="form-control" th:field="*{jobType}">
+            <label class="form-label" th:text="#{jobsPage.jobType}" for="jobType"></label>
+            <input id="jobType" class="form-control" th:field="*{jobType}">
+            <div th:if="${#fields.hasErrors('jobType')}" th:errors="*{jobType}">Job type field</div>
         </div>
         <div class="mb-3">
-            <label class="form-label" th:text="'deadlline'"></label>
-            <input class="form-control" th:field="*{deadline}">
+            <label class="form-label" th:text="#{jobsPage.jobDeadline}" for="deadline"></label>
+            <input id="deadline" class="form-control" th:field="*{deadline}">
+            <div th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}">Deadline field</div>
         </div>
         <div class="mb-3">
-            <label class="form-label" th:text="'Salary'"></label>
-            <input class="form-control" th:field="*{jobDetails.salary}">
+            <label class="form-label" th:text="#{jobsPage.salary}" for="salary"></label>
+            <input id="salary" class="form-control" th:field="*{jobDetails.salary}">
+            <div th:if="${#fields.hasErrors('jobDetails.salary')}" th:errors="*{jobDetails.salary}">Deadline field</div>
         </div>
         <div class="mb-3">
-            <label class="form-label" th:text="'Job description'"></label>
-            <textarea class="form-control" th:field="*{jobDetails.description}"></textarea>
+            <label class="form-label" th:text="#{jobsPage.jobDescription}" for="description"></label>
+            <textarea id="description" class="form-control" th:field="*{jobDetails.description}"></textarea>
+            <div th:if="${#fields.hasErrors('jobDetails.description')}" th:errors="*{jobDetails.description}">Deadline field</div>
         </div>
         <div class="d-md-flex justify-content-md-center">
             <button type="submit" class="btn btn-custom">

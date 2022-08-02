@@ -1,6 +1,7 @@
 package eu.dariusgovedas.jobofferingservice.jobs.controllers;
 
 import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
+import eu.dariusgovedas.jobofferingservice.jobs.entities.JobDetails;
 import eu.dariusgovedas.jobofferingservice.jobs.exceptions.JobNotFoundException;
 import eu.dariusgovedas.jobofferingservice.jobs.services.JobService;
 import eu.dariusgovedas.jobofferingservice.users.entities.User;
@@ -11,9 +12,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @Controller
@@ -40,8 +43,12 @@ public class JobController {
 
     @PreAuthorize("hasRole('RECRUITER')")
     @PostMapping("/private/jobs/create")
-    public String createJob(Job job, RedirectAttributes redirectAttributes, @AuthenticationPrincipal User user) {
+    public String createJob(@Valid Job job, BindingResult result,
+                            RedirectAttributes redirectAttributes, @AuthenticationPrincipal User user) {
 
+        if(result.hasErrors()){
+            return "jobForm";
+        }
         jobService.createJob(job, user);
         String message = "Job " + job.getJobTitle() + " successfully created";
         redirectAttributes.addFlashAttribute("jobs", message);
@@ -59,7 +66,11 @@ public class JobController {
 
     @PreAuthorize("hasRole('RECRUITER')")
     @PostMapping("/private/jobs/{id}")
-    public String updateJob(@PathVariable UUID id, Job job, RedirectAttributes redirectAttributes) {
+    public String updateJob(@PathVariable UUID id, @Valid Job job, BindingResult result, RedirectAttributes redirectAttributes) {
+
+        if(result.hasErrors()){
+            return "jobForm";
+        }
 
         jobService.updateJob(job, id);
         redirectAttributes.addAttribute("message", String.format("Job '%s' successfully updated", job.getJobTitle()));
