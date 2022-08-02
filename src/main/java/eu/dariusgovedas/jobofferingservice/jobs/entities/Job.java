@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -57,7 +56,8 @@ public class Job {
     @ManyToOne
     private Freelancer freelancer;
 
-    public void setRating(BigDecimal rating) {
+    public void finishJob(BigDecimal rating) {
+        this.freelancer.updateFreelancerStatus();
         this.status = JobStatus.CLOSED;
         this.rating = rating;
     }

@@ -1,5 +1,6 @@
 package eu.dariusgovedas.jobofferingservice.commons.controllers;
 
+import eu.dariusgovedas.jobofferingservice.jobs.services.JobService;
 import eu.dariusgovedas.jobofferingservice.users.entities.User;
 import eu.dariusgovedas.jobofferingservice.users.services.UserService;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class NavigationController {
 
     private UserService userService;
+    private JobService jobService;
 
     @GetMapping("/")
     public String getIndexPage(){
@@ -30,8 +32,9 @@ public class NavigationController {
     }
 
     @GetMapping("/private/user")
-    public String getFreelancerInfo(Model model, @AuthenticationPrincipal User user){
+    public String getFreelancerInfo(Pageable pageable, Model model, @AuthenticationPrincipal User user){
         model.addAttribute("user", user);
+        model.addAttribute("jobs", jobService.getJobs(user, pageable));
 
         return "userInfo";
     }

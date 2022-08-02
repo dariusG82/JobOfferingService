@@ -1,10 +1,12 @@
 package eu.dariusgovedas.jobofferingservice.users.entities;
 
 import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
+import eu.dariusgovedas.jobofferingservice.jobs.enums.JobStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
@@ -25,7 +27,7 @@ public class Freelancer {
     @GeneratedValue
     private Long id;
     @DecimalMin(value = "0")
-    private int jobsFinished;
+    private long jobsFinished;
 
     @DecimalMin(value = "0")
     @DecimalMax(value = "5")
@@ -42,7 +44,8 @@ public class Freelancer {
     @OneToMany(
             mappedBy = "freelancer",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
     )
     private Set<Job> jobs;
 
@@ -56,14 +59,30 @@ public class Freelancer {
         job.setFreelancer(null);
     }
 
+    public BigDecimal getTotalIncome() {
+        calculateTotalIncome();
+        return totalIncome;
+    }
+
     public BigDecimal getRating() {
         calculateRating();
         return rating;
     }
 
-    public void calculateRating(){
+    public long getJobsFinished() {
+        calculateFinishedJobs();
+        return jobsFinished;
+    }
+
+    public void updateFreelancerStatus(){
+        calculateRating();
+        calculateFinishedJobs();
+        calculateTotalIncome();
+    }
+
+    private void calculateRating(){
         BigDecimal totalRating = getTotalJobsRating();
-        this.rating = totalRating.divide(BigDecimal.valueOf(jobsFinished),2, RoundingMode.HALF_UP);
+        setRating(totalRating.divide(BigDecimal.valueOf(jobsFinished),2, RoundingMode.HALF_UP));
     }
 
     private BigDecimal getTotalJobsRating() {
@@ -71,5 +90,18 @@ public class Freelancer {
                 .filter(job -> job.getRating() != null)
                 .map(Job::getRating)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private void calculateFinishedJobs(){
+        setJobsFinished(jobs.stream()
+                .filter(job -> job.getStatus().equals(JobStatus.CLOSED))
+                .count());
+    }
+
+    private void calculateTotalIncome(){
+        setTotalIncome(jobs.stream()
+                .filter(job -> job.getStatus().equals(JobStatus.CLOSED))
+                .map(job -> job.getJobDetails().getSalary())
+                .reduce(BigDecimal.ZERO, BigDecimal::add));
     }
 }
