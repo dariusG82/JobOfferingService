@@ -118,6 +118,6 @@ public class JobService {
     @Transactional
     public void addJobRating(Job job, UUID id) {
         Job oldJob = getJobById(id);
-        oldJob.setRating(job.getRating());
+        oldJob.finishJob(job.getRating());
     }
 }
