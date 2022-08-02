@@ -5,6 +5,7 @@ import eu.dariusgovedas.jobofferingservice.users.entities.User;
 import eu.dariusgovedas.jobofferingservice.users.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +33,7 @@ public class NavigationController {
     }
 
     @GetMapping("/private/user")
-    public String getFreelancerInfo(Pageable pageable, Model model, @AuthenticationPrincipal User user){
+    public String getUserInfo(Pageable pageable, Model model, @AuthenticationPrincipal User user){
         model.addAttribute("user", user);
         model.addAttribute("jobs", jobService.getJobs(user, pageable));
 

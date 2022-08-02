@@ -1,7 +1,6 @@
 package eu.dariusgovedas.jobofferingservice.jobs.controllers;
 
 import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
-import eu.dariusgovedas.jobofferingservice.jobs.entities.JobDetails;
 import eu.dariusgovedas.jobofferingservice.jobs.exceptions.JobNotFoundException;
 import eu.dariusgovedas.jobofferingservice.jobs.services.JobService;
 import eu.dariusgovedas.jobofferingservice.users.entities.User;

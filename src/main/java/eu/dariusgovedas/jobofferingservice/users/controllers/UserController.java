@@ -20,12 +20,6 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
-//    private final RegistrationValidator registrationValidator;
-//
-//    @InitBinder(value = "user")
-//    void initStudentValidator(WebDataBinder binder){
-//        binder.addValidators(registrationValidator);
-//    }
 
     @GetMapping("/public/signUpForm")
     public String openSignUpForm(Model model){
@@ -46,11 +40,6 @@ public class UserController {
         } catch (UserAlreadyExistException uaeEx){
             redirectAttributes.addFlashAttribute("message", "Account for this username/email already exist");
         }
-
-//        userService.createUser(user);
-//
-//        redirectAttributes.addFlashAttribute("message",
-//                String.format("User '%s' succsessfully created!", user.getUsername()));
 
         return "redirect:/index";
     }
