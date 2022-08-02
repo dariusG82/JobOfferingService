@@ -177,3 +177,7 @@ main{
 }
 
 .rating:hover > input:checked ~ label:before{ opacity: 0.4; }
+
+table {
+    text-align: center;
+}

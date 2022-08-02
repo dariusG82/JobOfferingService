@@ -22,7 +22,7 @@ import java.util.Set;
 public class Freelancer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
     @DecimalMin(value = "0")
     private int jobsFinished;

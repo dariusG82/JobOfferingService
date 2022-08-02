@@ -23,7 +23,6 @@ public class JobDetails {
     @GeneratedValue
     private Long id;
 
-    @NotNull
     @NotEmpty
     private String description;
 

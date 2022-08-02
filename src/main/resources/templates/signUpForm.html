@@ -11,41 +11,52 @@
             <div class="col-lg-8">
                 <div class="card-body py-5 px-md-5">
 
-                    <form class="row g-3" method="POST" th:object="${appUser}">
+                    <form class="row g-3" method="POST" th:object="${user}">
                         <div class="col-md-6">
                             <label for="inputName" th:class="form-label"
                                    th:text="#{form.signUp.name}">Name</label>
                             <input th:class="form-control" id="inputName" th:field="*{name}">
+                            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="error-block">Name field</div>
                         </div>
                         <div class="col-md-6">
                             <label for="inputSurname" th:class="form-label"
                                    th:text="#{form.signUp.surname}">Surname</label>
                             <input th:class="form-control" id="inputSurname" th:field="*{surname}">
+                            <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" th:errorclass="error-block">Surname field</div>
                         </div>
                         <div class="col-12">
                             <label for="inputUsername" th:class="form-label"
                                    th:text="#{form.signUp.username}">Username</label>
                             <input type="text" class="form-control" id="inputUsername" th:field="*{username}">
+                            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:errorclass="error-block">Username field</div>
                         </div>
                         <div class="col-md-6">
                             <label for="inputPassword2" th:class="form-label"
                                    th:text="#{form.password}">Password</label>
                             <input type="password" class="form-control" id="inputPassword1" th:field="*{password}">
+                            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error-block">Password field</div>
                         </div>
                         <div class="col-md-6">
                             <label for="inputPassword2" class="form-label"
                                    th:text="#{form.signUp.repeatPassword}">Repeat Password</label>
-                            <input type="password" class="form-control" id="inputPassword2">
+                            <input type="password" class="form-control" id="inputPassword2" th:field="*{repeatPassword}">
                         </div>
                         <div class="col-12">
                             <label for="inputEmail" class="form-label"
                                    th:text="#{form.email}">Username</label>
-                            <input type="email" class="form-control" id="inputEmail" th:field="*{emailAddress}">
+                            <input class="form-control" id="inputEmail" th:field="*{emailAddress}">
+                            <div th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}" th:errorclass="error-block">Email Address field</div>
                         </div>
                         <div class="col-12">
                             <label for="inputPhoneNumber" class="form-label"
                                    th:text="#{form.signUp.phoneNumber}">Username</label>
                             <input class="form-control" id="inputPhoneNumber" th:field="*{phoneNumber}">
+                            <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" th:errorclass="error-block">Phone Number field</div>
+                        </div>
+                        <div class="col-12">
+                            <label for="inputBusiness" class="form-label"
+                                   th:text="#{form.signUp.businessName}">Business name</label>
+                            <input class="form-control" id="inputBusiness" th:field="*{businessName}">
                         </div>
                         <div class="col-12">
                             <form th:action="@{/public/signUpForm}" method="post">
