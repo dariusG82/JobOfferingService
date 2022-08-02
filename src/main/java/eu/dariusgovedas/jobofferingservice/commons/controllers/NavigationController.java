@@ -20,14 +20,6 @@ public class NavigationController {
         return "index";
     }
 
-    @GetMapping("/public/signUpForm")
-    public String getSignUpPage(Model model){
-
-        model.addAttribute("appUser", new User());
-
-        return "signUpForm";
-    }
-
     @GetMapping("/private/users")
     public String getUsersPage(Pageable pageable, Model model){
 

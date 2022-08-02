@@ -57,7 +57,8 @@
                         <th sec:authorize="hasRole('RECRUITER')"></th>
                         <th sec:authorize="hasRole('FREELANCER')"></th>
                         <th sec:authorize="hasAnyRole('ADMIN','RECRUITER')"></th>
-                        <th sec:authorize="hasRole('RECRUITER')">Rate User</th>
+                        <th sec:authorize="hasRole('RECRUITER')"
+                            th:text="#{jobsPage.rate}">Rate User</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -113,7 +114,7 @@
                                 </button>
                             </form>
                         </td>
-                        <td sec:authorize="hasRole('RECRUITER')">
+                        <td sec:authorize="hasRole('RECRUITER')" th:if="${job.rating eq null}">
                             <button id="formRate" th:if="${job.freelancer ne null}">
                                 <a th:href="@{/private/jobs/rate/{id}(id=${job.jobID})}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="16" height="16"
@@ -123,6 +124,10 @@
                                     </svg>
                                 </a>
                             </button>
+                        </td>
+                        <td sec:authorize="hasRole('RECRUITER')"
+                            th:id="${job.rating ne null && job.freelancer ne null}"
+                            th:text="${job.rating}">5
                         </td>
                     </tr>
                     </tbody>
