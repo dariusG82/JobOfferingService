@@ -23,4 +23,10 @@ public interface UserJPARepository extends JpaRepository<User, String> {
     Page<User> getFreelancers(Pageable pageable);
 
     User findByUsernameEquals(String username);
+
+    @Query("FROM User u WHERE u.emailAddress = :email")
+    User findByEmail(@Param("email") String email);
+
+    @Query("FROM User u WHERE u.username = :username")
+    User findByUsername(@Param("username") String username);
 }
