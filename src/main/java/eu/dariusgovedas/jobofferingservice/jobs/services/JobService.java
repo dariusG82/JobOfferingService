@@ -4,6 +4,7 @@ import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
 import eu.dariusgovedas.jobofferingservice.jobs.enums.JobStatus;
 import eu.dariusgovedas.jobofferingservice.jobs.exceptions.JobNotFoundException;
 import eu.dariusgovedas.jobofferingservice.jobs.repositories.JobsJPARepository;
+import eu.dariusgovedas.jobofferingservice.users.entities.Freelancer;
 import eu.dariusgovedas.jobofferingservice.users.entities.Recruiter;
 import eu.dariusgovedas.jobofferingservice.users.entities.User;
 import lombok.AllArgsConstructor;
@@ -65,6 +66,10 @@ public class JobService {
         Job jobToDelete = getJobById(id);
         Recruiter recruiter = jobToDelete.getRecruiter();
         recruiter.removeJob(jobToDelete);
+        Freelancer freelancer = jobToDelete.getFreelancer();
+        if(freelancer != null){
+            freelancer.removeJob(jobToDelete);
+        }
         jobsRepository.delete(jobToDelete);
         return jobToDelete;
     }

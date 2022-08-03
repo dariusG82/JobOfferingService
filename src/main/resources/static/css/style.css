@@ -143,7 +143,7 @@ main{
     display: none;
 }
 
-#formEdit, #formDelete, #formApply, #formRate {
+#formEdit, #formDelete, #formDeleteAdmin, #formApply, #formRate {
     border-style: none;
 }
 
