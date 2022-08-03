@@ -50,7 +50,7 @@ public class JobController {
         }
         jobService.createJob(job, user);
         String message = "Job " + job.getJobTitle() + " successfully created";
-        redirectAttributes.addFlashAttribute("jobs", message);
+        redirectAttributes.addFlashAttribute("message", message);
         return "redirect:/public/jobs";
     }
 
@@ -83,7 +83,7 @@ public class JobController {
 
         Job job = jobService.addJobToFreelancer(id, user);
 
-        redirectAttributes.addAttribute("message", String.format("Job '%s' successfully added to '%s' job list", job.getJobTitle(), user.getUsername()));
+        redirectAttributes.addFlashAttribute("message", String.format("Job '%s' successfully added to '%s' job list", job.getJobTitle(), user.getUsername()));
 
         return "redirect:/public/jobs";
     }
@@ -94,7 +94,7 @@ public class JobController {
 
         Job job = jobService.deleteJobById(id);
 
-        redirectAttributes.addAttribute("message", String.format("Job '%s' successfully deleted", job.getJobTitle()));
+        redirectAttributes.addFlashAttribute("message", String.format("Job '%s' successfully deleted", job.getJobTitle()));
 
         return "redirect:/public/jobs";
     }

@@ -10,8 +10,7 @@
                 <div class="container d-md-flex justify-content-md-center page-block text-primary-red">
                     <h1 th:text="#{jobsPage.tableTitle}">My Job's Board</h1>
                 </div>
-                <div th:if="${message ne null}" class="alert alert-success" role="alert">
-                    <span th:text="${message}"></span>
+                <div th:replace="fragments/common :: successMessage(${message})">
                 </div>
                 <div th:if="${jobs.empty}">
                     <h1 th:text="#{jobsPage.noJobsFound}">No jobs found</h1>
