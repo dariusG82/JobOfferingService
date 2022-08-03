@@ -4,6 +4,7 @@ import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
 import eu.dariusgovedas.jobofferingservice.jobs.enums.JobStatus;
 import eu.dariusgovedas.jobofferingservice.jobs.exceptions.JobNotFoundException;
 import eu.dariusgovedas.jobofferingservice.jobs.repositories.JobsJPARepository;
+import eu.dariusgovedas.jobofferingservice.users.entities.Recruiter;
 import eu.dariusgovedas.jobofferingservice.users.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -59,8 +60,11 @@ public class JobService {
         oldJob.getJobDetails().setDescription(job.getJobDetails().getDescription());
     }
 
+
     public Job deleteJobById(UUID id) {
         Job jobToDelete = getJobById(id);
+        Recruiter recruiter = jobToDelete.getRecruiter();
+        recruiter.removeJob(jobToDelete);
         jobsRepository.delete(jobToDelete);
         return jobToDelete;
     }
