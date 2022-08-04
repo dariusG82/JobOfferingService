@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
@@ -72,12 +71,6 @@ public class Freelancer {
     public long getJobsFinished() {
         calculateFinishedJobs();
         return jobsFinished;
-    }
-
-    public void updateFreelancerStatus(){
-        calculateRating();
-        calculateFinishedJobs();
-        calculateTotalIncome();
     }
 
     private void calculateRating(){

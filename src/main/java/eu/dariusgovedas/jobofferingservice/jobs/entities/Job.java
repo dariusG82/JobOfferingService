@@ -57,7 +57,6 @@ public class Job {
     private Freelancer freelancer;
 
     public void finishJob(BigDecimal rating) {
-        this.freelancer.updateFreelancerStatus();
         this.status = JobStatus.CLOSED;
         this.rating = rating;
     }
