@@ -22,8 +22,13 @@
                        th:classappend="${#httpServletRequest.requestURI.startsWith('/jobs') ? 'text-light-blue' : 'text-secondary-beige'}"
                        class="nav-link-custom px-2">Home</a>
                 </li>
-                <li sec:authorize="hasAnyRole('FREELANCER', 'RECRUITER')">
-                    <a th:href="@{/private/user}" th:text="#{layout.menu.user}"
+                <li sec:authorize="hasRole('RECRUITER')">
+                    <a th:href="@{/private/recruiter}" th:text="#{layout.menu.user}"
+                       th:classappend="${#httpServletRequest.requestURI eq '/user' ? 'text-light-blue' : 'text-secondary-beige'}"
+                       class="nav-link-custom px-2">About</a>
+                </li>
+                <li sec:authorize="hasRole('FREELANCER')">
+                    <a th:href="@{/private/freelancer}" th:text="#{layout.menu.user}"
                        th:classappend="${#httpServletRequest.requestURI eq '/user' ? 'text-light-blue' : 'text-secondary-beige'}"
                        class="nav-link-custom px-2">About</a>
                 </li>

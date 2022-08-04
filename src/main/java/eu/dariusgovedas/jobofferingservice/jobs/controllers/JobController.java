@@ -110,9 +110,9 @@ public class JobController {
 
     @PreAuthorize("hasRole('RECRUITER')")
     @PostMapping("/private/jobs/rate/{id}")
-    public String rateJob(@PathVariable UUID id, Job job,  @AuthenticationPrincipal User user) {
+    public String rateAndFinishJob(@PathVariable UUID id, Job job,  @AuthenticationPrincipal User user) {
 
-        jobService.addJobRating(job, id);
+        jobService.finishJob(job, id);
 
         return "redirect:/public/jobs";
     }

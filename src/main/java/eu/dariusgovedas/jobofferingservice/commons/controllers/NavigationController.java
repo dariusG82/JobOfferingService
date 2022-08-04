@@ -32,10 +32,18 @@ public class NavigationController {
         return "users";
     }
 
-    @GetMapping("/private/user")
-    public String getUserInfo(Pageable pageable, Model model, @AuthenticationPrincipal User user){
+    @GetMapping("/private/recruiter")
+    public String getRecruiterInfoPage(Pageable pageable, Model model, @AuthenticationPrincipal User user){
         model.addAttribute("user", user);
         model.addAttribute("jobs", jobService.getJobs(user, pageable));
+
+        return "userInfo";
+    }
+
+    @GetMapping("/private/freelancer")
+    public String getFreelancerInfoPage(Pageable pageable, Model model, @AuthenticationPrincipal User user){
+        model.addAttribute("user", user);
+        model.addAttribute("jobs", jobService.getActiveFreelancerJobs(user, pageable));
 
         return "userInfo";
     }
