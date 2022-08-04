@@ -7,15 +7,15 @@
     <div class="container py-4">
         <div class="p-5 mb-4 background-light rounded-3">
             <div class="container-fluid py-5">
-                <div class="container d-md-flex justify-content-md-center page-block text-primary-red">
+                <div th:if="${not jobs.empty}" class="container d-md-flex justify-content-md-center page-block text-primary-red">
                     <h1 th:text="#{jobsPage.tableTitle}">My Job's Board</h1>
                 </div>
                 <div th:replace="fragments/common :: successMessage(${message})">
                 </div>
-                <div th:if="${jobs.empty}">
+                <div th:if="${jobs.empty}" class="container d-md-flex justify-content-md-center page-block text-primary-red">
                     <h1 th:text="#{jobsPage.noJobsFound}">No jobs found</h1>
                 </div>
-                <div class="page-block">
+                <div th:if="${not jobs.empty}" class="page-block">
                     <form method="GET" th:action="@{/public/jobs/search}" class="form-inline">
                         <input name="title" th:value="${param.title}">
                         <button class="btn btn-custom" th:text="#{jobsPage.searchJob}">Search</button>
