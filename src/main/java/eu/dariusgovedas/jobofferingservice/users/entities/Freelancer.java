@@ -81,6 +81,10 @@ public class Freelancer {
     }
 
     private void calculateRating(){
+        if(jobsFinished == 0){
+            rating = BigDecimal.ZERO;
+            return;
+        }
         BigDecimal totalRating = getTotalJobsRating();
         setRating(totalRating.divide(BigDecimal.valueOf(jobsFinished),2, RoundingMode.HALF_UP));
     }
