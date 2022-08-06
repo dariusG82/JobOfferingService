@@ -4,13 +4,11 @@ import eu.dariusgovedas.jobofferingservice.users.entities.*;
 import eu.dariusgovedas.jobofferingservice.users.repositories.UserJPARepository;
 import eu.dariusgovedas.jobofferingservice.users.validation.UserAlreadyExistException;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -55,25 +53,30 @@ public class UserService implements UserDetailsService {
     }
 
     public User registerNewUser(UserDTO userDTO) throws UserAlreadyExistException {
-        if(emailExists(userDTO.getEmailAddress())){
-            throw new UserAlreadyExistException("There is an account with email " + userDTO.getEmailAddress());
-        }
-        if(usernameExists(userDTO.getUsername())){
-            throw new UserAlreadyExistException("There is an account with username " + userDTO.getUsername());
+        if(emailExists(userDTO.getEmailAddress()) || usernameExists(userDTO.getUsername())){
+            throw new UserAlreadyExistException();
         }
 
         User user = new User();
-        user.setName(userDTO.getName());
-        user.setSurname(userDTO.getSurname());
+        user.setName(getFormattedNameOrSurname(userDTO.getName()));
+        user.setSurname(getFormattedNameOrSurname(userDTO.getSurname()));
         user.setUsername(userDTO.getUsername());
         user.setPassword("{bcrypt}"+passwordEncoder.encode(userDTO.getPassword()));
-        user.setEmailAddress(userDTO.getEmailAddress());
-        user.setPhoneNumber(userDTO.getPhoneNumber());
+        user.setEmailAddress(userDTO.getEmailAddress().toLowerCase());
+        user.setPhoneNumber(getInternationalNumber(userDTO.getPhoneNumber()));
         if(userIsRecruiter(userDTO)){
             return createRecruiter(user, userDTO);
         } else {
             return createFreelancer(user);
         }
+    }
+
+    private String getFormattedNameOrSurname(String userData){
+        return userData.substring(0,1).toUpperCase() + userData.substring(1).toLowerCase();
+    }
+
+    private String getInternationalNumber(String phoneNumber) {
+        return phoneNumber.startsWith("86") ? "+370" + phoneNumber.substring(2) : phoneNumber;
     }
 
 
@@ -107,7 +110,7 @@ public class UserService implements UserDetailsService {
     }
 
     private boolean emailExists(String email){
-        return userJPARepository.findByEmail(email) != null;
+        return userJPARepository.findByEmail(email.toLowerCase()) != null;
     }
 
     private boolean usernameExists(String username){

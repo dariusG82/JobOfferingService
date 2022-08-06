@@ -1,14 +1,8 @@
 package eu.dariusgovedas.jobofferingservice.users.validation;
 
-public class UserAlreadyExistException extends RuntimeException{
-    private final String message;
+public class UserAlreadyExistException extends RuntimeException {
 
-    public UserAlreadyExistException(String s) {
-        this.message = super.getMessage() + s;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
+    public UserAlreadyExistException() {
+        super("Email and/or username already exist");
     }
 }
