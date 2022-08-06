@@ -33,7 +33,12 @@
                        class="nav-link-custom px-2">About</a>
                 </li>
                 <li sec:authorize="hasRole('ADMIN')">
-                    <a th:href="@{/private/admin}" th:text="#{layout.menu.admin}"
+                    <a th:href="@{/private/admin/recruiters}" th:text="#{layout.menu.admin.recruiter}"
+                       th:classappend="${#httpServletRequest.requestURI eq '/admin' ? 'text-light-blue' : 'text-secondary-beige'}"
+                       class="nav-link-custom px-2">About</a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/private/admin/freelancers}" th:text="#{layout.menu.admin.freelancer}"
                        th:classappend="${#httpServletRequest.requestURI eq '/admin' ? 'text-light-blue' : 'text-secondary-beige'}"
                        class="nav-link-custom px-2">About</a>
                 </li>

@@ -29,7 +29,7 @@ public class NavigationController {
         model.addAttribute("freelancers", userService.getFreelancers(pageable));
         model.addAttribute("recruiters", userService.getRecruiters(pageable));
 
-        return "users";
+        return "adminRecruiters";
     }
 
     @GetMapping("/private/recruiter")
@@ -46,5 +46,23 @@ public class NavigationController {
         model.addAttribute("jobs", jobService.getActiveFreelancerJobs(user, pageable));
 
         return "userInfo";
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/private/admin/recruiters")
+    public String getRecruitersManagingPage(Pageable pageable, Model model){
+
+        model.addAttribute("recruiters", userService.getRecruiters(pageable));
+
+        return "adminRecruiters";
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/private/admin/freelancers")
+    public String getFreelancersManagingPage(Pageable pageable, Model model){
+
+        model.addAttribute("freelancers", userService.getFreelancers(pageable));
+
+        return "adminFreelancers";
     }
 }

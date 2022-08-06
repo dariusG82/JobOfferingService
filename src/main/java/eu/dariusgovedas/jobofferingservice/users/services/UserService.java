@@ -74,7 +74,6 @@ public class UserService implements UserDetailsService {
         return phoneNumber.startsWith("86") ? "+3706" + phoneNumber.substring(2) : phoneNumber;
     }
 
-
     private User createRecruiter(User user, UserDTO userDTO){
         Recruiter recruiter = new Recruiter();
         recruiter.setBusinessName(userDTO.getBusinessName());

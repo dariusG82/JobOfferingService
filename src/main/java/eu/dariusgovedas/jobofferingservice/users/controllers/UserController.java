@@ -3,7 +3,6 @@ package eu.dariusgovedas.jobofferingservice.users.controllers;
 import eu.dariusgovedas.jobofferingservice.users.entities.User;
 import eu.dariusgovedas.jobofferingservice.users.entities.UserDTO;
 import eu.dariusgovedas.jobofferingservice.users.services.UserService;
-import eu.dariusgovedas.jobofferingservice.users.validation.UserAlreadyExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
