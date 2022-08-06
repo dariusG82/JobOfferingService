@@ -3,6 +3,7 @@ package eu.dariusgovedas.jobofferingservice.users.entities;
 import eu.dariusgovedas.jobofferingservice.users.validation.annotations.PasswordMatches;
 import eu.dariusgovedas.jobofferingservice.users.validation.annotations.PhoneNumber;
 import eu.dariusgovedas.jobofferingservice.users.validation.annotations.ValidEmail;
+import eu.dariusgovedas.jobofferingservice.users.validation.annotations.ValidPassword;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,7 @@ public class UserDTO {
     private String username;
 
     @NotEmpty
+    @ValidPassword
     private String password;
 
     @NotEmpty
@@ -33,6 +35,7 @@ public class UserDTO {
     @ValidEmail
     private String emailAddress;
 
+    @NotEmpty
     @PhoneNumber
     private String phoneNumber;
 
