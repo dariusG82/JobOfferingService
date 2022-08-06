@@ -31,15 +31,17 @@
                             <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:errorclass="error-block">Username field</div>
                         </div>
                         <div class="col-md-6">
-                            <label for="inputPassword2" th:class="form-label"
+                            <label for="inputPassword1" th:class="form-label"
                                    th:text="#{form.password}">Password</label>
                             <input type="password" class="form-control" id="inputPassword1" th:field="*{password}">
                             <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error-block">Password field</div>
+                            <div th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" th:errorclass="error-block">Password field</div>
                         </div>
                         <div class="col-md-6">
                             <label for="inputPassword2" class="form-label"
                                    th:text="#{form.signUp.repeatPassword}">Repeat Password</label>
                             <input type="password" class="form-control" id="inputPassword2" th:field="*{repeatPassword}">
+                            <div th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}" th:errorclass="error-block">Password field</div>
                         </div>
                         <div class="col-12">
                             <label for="inputEmail" class="form-label"
