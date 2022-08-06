@@ -1,10 +1,11 @@
 package eu.dariusgovedas.jobofferingservice.users.entities;
 
-import eu.dariusgovedas.jobofferingservice.users.validation.PasswordMatches;
+import eu.dariusgovedas.jobofferingservice.users.validation.annotations.PasswordMatches;
+import eu.dariusgovedas.jobofferingservice.users.validation.annotations.PhoneNumber;
+import eu.dariusgovedas.jobofferingservice.users.validation.annotations.ValidEmail;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Getter
@@ -29,10 +30,10 @@ public class UserDTO {
     private String repeatPassword;
 
     @NotEmpty
-    @Email
+    @ValidEmail
     private String emailAddress;
 
-    @NotEmpty
+    @PhoneNumber
     private String phoneNumber;
 
     private String businessName;

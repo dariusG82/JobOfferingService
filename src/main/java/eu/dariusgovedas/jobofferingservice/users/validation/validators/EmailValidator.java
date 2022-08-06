@@ -1,4 +1,6 @@
-package eu.dariusgovedas.jobofferingservice.users.validation;
+package eu.dariusgovedas.jobofferingservice.users.validation.validators;
+
+import eu.dariusgovedas.jobofferingservice.users.validation.annotations.ValidEmail;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -15,6 +17,8 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
                 !email.trim().isEmpty() &&
                 email.contains("@") &&
                 email.contains(".") &&
-                email.indexOf("@") > email.indexOf(".");
+                email.indexOf("@") < email.lastIndexOf(".") &&
+                email.indexOf("@") == email.lastIndexOf("@") &&
+                email.lastIndexOf(".") < email.length() - 1 ;
     }
 }

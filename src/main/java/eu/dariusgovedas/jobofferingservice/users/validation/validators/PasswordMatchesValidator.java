@@ -1,6 +1,7 @@
-package eu.dariusgovedas.jobofferingservice.users.validation;
+package eu.dariusgovedas.jobofferingservice.users.validation.validators;
 
 import eu.dariusgovedas.jobofferingservice.users.entities.UserDTO;
+import eu.dariusgovedas.jobofferingservice.users.validation.annotations.PasswordMatches;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,4 +1,6 @@
-package eu.dariusgovedas.jobofferingservice.users.validation;
+package eu.dariusgovedas.jobofferingservice.users.validation.annotations;
+
+import eu.dariusgovedas.jobofferingservice.users.validation.validators.EmailValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
