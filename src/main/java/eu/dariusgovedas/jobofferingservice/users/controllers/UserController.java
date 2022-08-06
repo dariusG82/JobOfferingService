@@ -22,24 +22,22 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/public/signUpForm")
-    public String openSignUpForm(Model model){
+    public String openSignUpForm(Model model) {
         UserDTO userDTO = new UserDTO();
         model.addAttribute("user", userDTO);
         return "signUpForm";
     }
 
     @PostMapping("/public/signUpForm")
-    public String createUser(@ModelAttribute("user") @Valid UserDTO userDTO, BindingResult errors, RedirectAttributes redirectAttributes){
+    public String createUser(@ModelAttribute("user") @Valid UserDTO userDTO, BindingResult errors, RedirectAttributes redirectAttributes) {
 
-        if(errors.hasErrors()){
+        if (errors.hasErrors()) {
             return "signUpForm";
         }
 
-        try {
-            User registered = userService.registerNewUser(userDTO);
-        } catch (UserAlreadyExistException uaeEx){
-            redirectAttributes.addFlashAttribute("message", "Account for this username/email already exist");
-        }
+        User user = userService.registerNewUser(userDTO);
+
+        redirectAttributes.addFlashAttribute("message", String.format("User %s is successfully registered", user.getUsername()));
 
         return "redirect:/index";
     }

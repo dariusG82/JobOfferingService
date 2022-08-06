@@ -2,7 +2,6 @@ package eu.dariusgovedas.jobofferingservice.users.services;
 
 import eu.dariusgovedas.jobofferingservice.users.entities.*;
 import eu.dariusgovedas.jobofferingservice.users.repositories.UserJPARepository;
-import eu.dariusgovedas.jobofferingservice.users.validation.UserAlreadyExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,11 +51,7 @@ public class UserService implements UserDetailsService {
         userJPARepository.save(user);
     }
 
-    public User registerNewUser(UserDTO userDTO) throws UserAlreadyExistException {
-        if(emailExists(userDTO.getEmailAddress()) || usernameExists(userDTO.getUsername())){
-            throw new UserAlreadyExistException();
-        }
-
+    public User registerNewUser(UserDTO userDTO) {
         User user = new User();
         user.setName(getFormattedNameOrSurname(userDTO.getName()));
         user.setSurname(getFormattedNameOrSurname(userDTO.getSurname()));
@@ -76,7 +71,7 @@ public class UserService implements UserDetailsService {
     }
 
     private String getInternationalNumber(String phoneNumber) {
-        return phoneNumber.startsWith("86") ? "+370" + phoneNumber.substring(2) : phoneNumber;
+        return phoneNumber.startsWith("86") ? "+3706" + phoneNumber.substring(2) : phoneNumber;
     }
 
 
@@ -109,11 +104,11 @@ public class UserService implements UserDetailsService {
 
     }
 
-    private boolean emailExists(String email){
+    public boolean emailExists(String email){
         return userJPARepository.findByEmail(email.toLowerCase()) != null;
     }
 
-    private boolean usernameExists(String username){
+    public boolean usernameExists(String username){
         return userJPARepository.findByUsername(username) != null;
     }
 }

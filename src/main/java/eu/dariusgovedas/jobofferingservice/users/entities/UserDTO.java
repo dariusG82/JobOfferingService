@@ -1,9 +1,6 @@
 package eu.dariusgovedas.jobofferingservice.users.entities;
 
-import eu.dariusgovedas.jobofferingservice.users.validation.annotations.PasswordMatches;
-import eu.dariusgovedas.jobofferingservice.users.validation.annotations.PhoneNumber;
-import eu.dariusgovedas.jobofferingservice.users.validation.annotations.ValidEmail;
-import eu.dariusgovedas.jobofferingservice.users.validation.annotations.ValidPassword;
+import eu.dariusgovedas.jobofferingservice.users.validation.annotations.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +19,7 @@ public class UserDTO {
     private String surname;
 
     @NotEmpty
+    @UniqueUsername
     private String username;
 
     @NotEmpty
@@ -33,6 +31,7 @@ public class UserDTO {
 
     @NotEmpty
     @ValidEmail
+    @UniqueEmail
     private String emailAddress;
 
     @NotEmpty
