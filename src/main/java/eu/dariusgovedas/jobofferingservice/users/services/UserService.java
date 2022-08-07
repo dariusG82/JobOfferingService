@@ -15,6 +15,9 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static eu.dariusgovedas.jobofferingservice.users.enums.RoleType.FREELANCER;
+import static eu.dariusgovedas.jobofferingservice.users.enums.RoleType.RECRUITER;
+
 @Service
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
@@ -79,7 +82,7 @@ public class UserService implements UserDetailsService {
         recruiter.setBusinessName(userDTO.getBusinessName());
         user.setRecruiter(recruiter);
         Role role = new Role();
-        role.setName("RECRUITER");
+        role.setName(RECRUITER);
         user.setRole(role);
         createUser(user);
         return user;
@@ -92,7 +95,7 @@ public class UserService implements UserDetailsService {
         freelancer.setTotalIncome(BigDecimal.ZERO);
         user.setFreelancer(freelancer);
         Role role = new Role();
-        role.setName("FREELANCER");
+        role.setName(FREELANCER);
         user.setRole(role);
         createUser(user);
         return user;
