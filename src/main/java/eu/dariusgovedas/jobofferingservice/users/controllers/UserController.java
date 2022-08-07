@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -39,5 +40,15 @@ public class UserController {
         redirectAttributes.addFlashAttribute("message", String.format("User %s is successfully registered", user.getUsername()));
 
         return "redirect:/index";
+    }
+
+    @PostMapping("/private/admin/freelancer/{username}/delete")
+    public String deleteFreelancer(@PathVariable String username, RedirectAttributes redirectAttributes){
+
+        User user = userService.deleteFreelancer(username);
+
+        redirectAttributes.addFlashAttribute("message", String.format("User %s is successfully deleted", user.getUsername()));
+
+        return "redirect:/private/admin/freelancers";
     }
 }

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import static eu.dariusgovedas.jobofferingservice.users.enums.UserStatus.ACTIVE;
+
 @AllArgsConstructor
 @Controller
 public class NavigationController {
@@ -26,8 +28,8 @@ public class NavigationController {
     @GetMapping("/private/users")
     public String getUsersPage(Pageable pageable, Model model){
 
-        model.addAttribute("freelancers", userService.getFreelancers(pageable));
-        model.addAttribute("recruiters", userService.getRecruiters(pageable));
+        model.addAttribute("freelancers", userService.getActiveFreelancers(ACTIVE,  pageable));
+        model.addAttribute("recruiters", userService.getActiveRecruiters(ACTIVE, pageable));
 
         return "adminRecruiters";
     }
@@ -52,7 +54,7 @@ public class NavigationController {
     @GetMapping("/private/admin/recruiters")
     public String getRecruitersManagingPage(Pageable pageable, Model model){
 
-        model.addAttribute("recruiters", userService.getRecruiters(pageable));
+        model.addAttribute("recruiters", userService.getActiveRecruiters(ACTIVE, pageable));
 
         return "adminRecruiters";
     }
@@ -61,7 +63,7 @@ public class NavigationController {
     @GetMapping("/private/admin/freelancers")
     public String getFreelancersManagingPage(Pageable pageable, Model model){
 
-        model.addAttribute("freelancers", userService.getFreelancers(pageable));
+        model.addAttribute("freelancers", userService.getActiveFreelancers(ACTIVE, pageable));
 
         return "adminFreelancers";
     }

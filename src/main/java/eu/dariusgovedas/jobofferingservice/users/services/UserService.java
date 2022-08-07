@@ -1,6 +1,7 @@
 package eu.dariusgovedas.jobofferingservice.users.services;
 
 import eu.dariusgovedas.jobofferingservice.users.entities.*;
+import eu.dariusgovedas.jobofferingservice.users.enums.UserStatus;
 import eu.dariusgovedas.jobofferingservice.users.repositories.UserJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,12 +27,14 @@ public class UserService implements UserDetailsService {
 
     private UserJPARepository userJPARepository;
 
-    public Page<User> getFreelancers(Pageable pageable) {
-        return userJPARepository.getFreelancers(pageable);
+    public static final String DELETED = "Deleted - ";
+
+    public Page<User> getActiveFreelancers(UserStatus status, Pageable pageable) {
+        return userJPARepository.getFreelancers(status, pageable);
     }
 
-    public Page<User> getRecruiters(Pageable pageable) {
-        return userJPARepository.getRecruiters(pageable);
+    public Page<User> getActiveRecruiters(UserStatus status, Pageable pageable) {
+        return userJPARepository.getRecruiters(status, pageable);
     }
 
     private List<User> getAppUsers() {
@@ -45,7 +48,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        return userJPARepository.findUserWithRoles(username)
+        return userJPARepository.findUserWithRoles(username, UserStatus.ACTIVE)
                 .orElseThrow();
     }
 
@@ -62,6 +65,7 @@ public class UserService implements UserDetailsService {
         user.setPassword("{bcrypt}"+passwordEncoder.encode(userDTO.getPassword()));
         user.setEmailAddress(userDTO.getEmailAddress().toLowerCase());
         user.setPhoneNumber(getInternationalNumber(userDTO.getPhoneNumber()));
+        user.setStatus(UserStatus.ACTIVE);
         if(userIsRecruiter(userDTO)){
             return createRecruiter(user, userDTO);
         } else {
@@ -103,7 +107,6 @@ public class UserService implements UserDetailsService {
 
     private boolean userIsRecruiter(UserDTO userDTO) {
         return userDTO.getBusinessName() != null && !userDTO.getBusinessName().trim().isEmpty();
-
     }
 
     public boolean emailExists(String email){
@@ -112,5 +115,14 @@ public class UserService implements UserDetailsService {
 
     public boolean usernameExists(String username){
         return userJPARepository.findByUsername(username) != null;
+    }
+
+    @Transactional
+    public User deleteFreelancer(String username) {
+
+        User user = findUserByUsername(username);
+        user.setStatus(UserStatus.DELETED);
+
+        return user;
     }
 }

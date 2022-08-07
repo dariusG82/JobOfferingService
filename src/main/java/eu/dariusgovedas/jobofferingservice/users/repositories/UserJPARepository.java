@@ -1,6 +1,7 @@
 package eu.dariusgovedas.jobofferingservice.users.repositories;
 
 import eu.dariusgovedas.jobofferingservice.users.entities.User;
+import eu.dariusgovedas.jobofferingservice.users.enums.UserStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,14 +14,14 @@ import java.util.Optional;
 @Repository
 public interface UserJPARepository extends JpaRepository<User, String> {
 
-    @Query("SELECT u FROM User u JOIN FETCH u.role WHERE u.username = :username")
-    Optional<User> findUserWithRoles(@Param("username") String username);
+    @Query("SELECT u FROM User u JOIN FETCH u.role WHERE u.username = :username AND u.status=:status")
+    Optional<User> findUserWithRoles(@Param("username") String username, @Param("status") UserStatus status );
 
-    @Query("FROM User u WHERE u.recruiter IS NOT NULL")
-    Page<User> getRecruiters(Pageable pageable);
+    @Query("FROM User u WHERE u.recruiter IS NOT NULL AND u.status =:status")
+    Page<User> getRecruiters(@Param("status") UserStatus status, Pageable pageable);
 
-    @Query("FROM User u WHERE u.freelancer IS NOT NULL")
-    Page<User> getFreelancers(Pageable pageable);
+    @Query("FROM User u WHERE u.freelancer IS NOT NULL AND u.status= :status")
+    Page<User> getFreelancers(@Param("status") UserStatus status, Pageable pageable);
 
     User findByUsernameEquals(String username);
 
