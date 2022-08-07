@@ -1,5 +1,6 @@
 package eu.dariusgovedas.jobofferingservice.users.entities;
 
+import eu.dariusgovedas.jobofferingservice.users.enums.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,9 +8,6 @@ import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,6 +25,7 @@ public class User implements UserDetails {
     private String surname;
     private String emailAddress;
     private String phoneNumber;
+    private UserStatus status;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "freelancer_id", referencedColumnName = "id")
