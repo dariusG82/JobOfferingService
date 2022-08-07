@@ -6,6 +6,7 @@ import eu.dariusgovedas.jobofferingservice.jobs.repositories.JobsJPARepository;
 import eu.dariusgovedas.jobofferingservice.users.entities.Freelancer;
 import eu.dariusgovedas.jobofferingservice.users.entities.Recruiter;
 import eu.dariusgovedas.jobofferingservice.users.entities.User;
+import eu.dariusgovedas.jobofferingservice.users.enums.RoleType;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,15 +26,15 @@ public class JobService {
 
     public Page<Job> getJobs(User user, Pageable pageable) {
         if (user != null) {
-            String userRole = user.getRole().getName();
+            RoleType userRole = user.getRole().getName();
             switch (userRole) {
-                case "RECRUITER" -> {
+                case RECRUITER -> {
                     return getRecruiterJobs(pageable, user);
                 }
-                case "FREELANCER" -> {
+                case FREELANCER -> {
                     return getAvailableJobs(pageable);
                 }
-                case "ADMIN" -> {
+                case ADMIN -> {
                     return getAllJobs(pageable);
                 }
             }
