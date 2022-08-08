@@ -8,7 +8,8 @@ import lombok.Getter;
 public enum JobStatus {
     ACTIVE("ACTIVE"),
     ACCEPTED("ACCEPTED"),
-    CLOSED("CLOSED");
+    CLOSED("CLOSED"),
+    DISABLED("DISABLED");
 
     private final String enumValue;
 }

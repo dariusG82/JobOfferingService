@@ -51,4 +51,14 @@ public class UserController {
 
         return "redirect:/private/admin/freelancers";
     }
+
+    @PostMapping("/private/admin/recruiter/{username}/delete")
+    public String deleteRecruiter(@PathVariable String username, RedirectAttributes redirectAttributes){
+
+        User user = userService.deleteRecruiter(username);
+
+        redirectAttributes.addFlashAttribute("message", String.format("User %s is successfully deleted", user.getUsername()));
+
+        return "redirect:/private/admin/recruiters";
+    }
 }

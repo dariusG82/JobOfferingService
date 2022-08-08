@@ -13,10 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.UUID;
 
-import static eu.dariusgovedas.jobofferingservice.jobs.enums.JobStatus.ACCEPTED;
-import static eu.dariusgovedas.jobofferingservice.jobs.enums.JobStatus.ACTIVE;
+import static eu.dariusgovedas.jobofferingservice.jobs.enums.JobStatus.*;
 
 @Service
 @AllArgsConstructor
@@ -136,5 +136,14 @@ public class JobService {
     public void finishJob(Job job, UUID id) {
         Job jobToRate = getJobById(id);
         jobToRate.finishJob(job.getRating());
+    }
+
+    public void deleteRecruiterJobs(User user) {
+        List<Job> activeRecruiterJobs = jobsRepository.findActiveRecruiterJobs(user.getRecruiter().getId(), CLOSED);
+
+        for(Job job : activeRecruiterJobs){
+            job.setStatus(DISABLED);
+            job.setFreelancer(null);
+        }
     }
 }
