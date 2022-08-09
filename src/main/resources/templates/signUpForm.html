@@ -3,7 +3,7 @@
       th:replace="fragments/layout :: layout(#{signUp.title}, ~{:: #main})">
 <div id="main">
     <div id="login-block" class="card mb-3">
-        <div class="row g-0 d-flex align-items-center">
+        <div class="row g-0 d-flex align-items-center background-light rounded-3">
             <div class="col-lg-4 d-none d-lg-flex">
                 <img th:src="@{/images/register.png}"
                      class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5"/>
@@ -55,6 +55,39 @@
                             <input class="form-control" id="inputPhoneNumber" th:field="*{phoneNumber}">
                             <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" th:errorclass="error-block">Phone Number field</div>
                         </div>
+
+                        <div class="col-md-6">
+                            <label for="inputCountry" th:class="form-label"
+                                   th:text="#{form.country}">City</label>
+                            <input class="form-control" id="inputCountry" th:field="*{country}">
+                            <div th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:errorclass="error-block">Country field</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputCity" th:class="form-label"
+                                   th:text="#{form.city}">City</label>
+                            <input class="form-control" id="inputCity" th:field="*{city}">
+                            <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}" th:errorclass="error-block">City field</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="inputStreet" th:class="form-label"
+                                   th:text="#{form.street}">Street</label>
+                            <input class="form-control" id="inputStreet" th:field="*{street}">
+                            <div th:if="${#fields.hasErrors('street')}" th:errors="*{street}" th:errorclass="error-block">Street field</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="inputHouse" th:class="form-label"
+                                   th:text="#{form.houseNr}">Street</label>
+                            <input class="form-control" id="inputHouse" th:field="*{houseNr}">
+                            <div th:if="${#fields.hasErrors('houseNr')}" th:errors="*{houseNr}" th:errorclass="error-block">Street field</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="inputFlat" th:class="form-label"
+                                   th:text="#{form.flatNr}">Street</label>
+                            <input class="form-control" id="inputFlat" th:field="*{flatNr}">
+                            <div th:if="${#fields.hasErrors('flatNr')}" th:errors="*{flatNr}" th:errorclass="error-block">Street field</div>
+                        </div>
+
                         <div class="col-12">
                             <label for="inputBusiness" class="form-label"
                                    th:text="#{form.signUp.businessName}">Business name</label>

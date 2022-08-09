@@ -25,8 +25,8 @@
                         <td th:text="${user.username}">Username</td>
                         <td th:text="${user.name}">Name</td>
                         <th th:text="${user.surname}">Surname
-                        <th th:text="${user.emailAddress}">E-mail</th>
-                        <th th:text="${user.phoneNumber}">PhoneNumber</th>
+                        <th th:text="${user.contactDetails.emailAddress}">E-mail</th>
+                        <th th:text="${user.contactDetails.phoneNumber}">PhoneNumber</th>
 <!--                        <td>-->
 <!--                            <button id="formEdit">-->
 <!--                                <a th:href="@{/private/user/{id}(id=${user.username})}">-->

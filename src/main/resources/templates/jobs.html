@@ -17,7 +17,7 @@
                 </div>
                 <div th:if="${not jobs.empty}" class="page-block">
                     <form method="GET" th:action="@{/public/jobs/search}" class="form-inline">
-                        <input name="title" th:value="${param.title}">
+                        <input name="title" class="rounded-3" th:value="${param.title}">
                         <button class="btn btn-custom" th:text="#{jobsPage.searchJob}">Search</button>
                     </form>
                 </div>
@@ -67,10 +67,10 @@
                         <td th:text="${job.deadline}">2022-07-30</td>
                         <td th:text="${job.jobDetails.salary}">10000.00</td>
                         <td sec:authorize="hasAnyRole('ADMIN','FREELANCER')"
-                            th:text="${job.recruiter.getUser.emailAddress}">some.email@gmail.com
+                            th:text="${job.recruiter.getUser.getContactDetails().emailAddress}">some.email@gmail.com
                         </td>
                         <td sec:authorize="hasAnyRole('ADMIN','FREELANCER')"
-                            th:text="${job.recruiter.getUser.phoneNumber}">+370 333 33333
+                            th:text="${job.recruiter.getUser.getContactDetails().phoneNumber}">+370 333 33333
                         </td>
                         <td sec:authorize="hasAnyRole('ADMIN','FREELANCER', 'RECRUITER')"
                             th:text="${job.jobDetails.description}">Lorem ipsum :) Lorem ipsum :) Lorem ipsum :) Lorem

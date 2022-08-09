@@ -26,10 +26,10 @@
                     </thead>
                     <tbody>
                     <tr th:each="freelancer : ${freelancers}">
-                        <td th:text="${freelancer.name}">Namer</td>
-                        <td th:text="${freelancer.surname}">Surnamer</td>
+                        <td th:text="${freelancer.name}">Name</td>
+                        <td th:text="${freelancer.surname}">Surname</td>
                         <td th:text="${freelancer.username}">Does</td>
-                        <td th:text="*{freelancer.emailAddress}">email@mail.com</td>
+                        <td th:text="*{freelancer.contactDetails.emailAddress}">email@mail.com</td>
                         <td th:text="${freelancer.freelancer.jobsFinished}">25</td>
                         <td th:text="${freelancer.freelancer.rating}">+5.5</td>
                         <td th:text="*{freelancer.freelancer.totalIncome}">2525.50</td>

@@ -23,9 +23,10 @@ public class User implements UserDetails {
     private String password;
     private String name;
     private String surname;
-    private String emailAddress;
-    private String phoneNumber;
     private UserStatus status;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private UserContactDetails contactDetails;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "freelancer_id", referencedColumnName = "id")

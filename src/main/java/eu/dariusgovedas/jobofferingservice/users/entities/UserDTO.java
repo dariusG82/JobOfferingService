@@ -38,5 +38,18 @@ public class UserDTO {
     @PhoneNumber
     private String phoneNumber;
 
+    @NotEmpty
+    private String country;
+
+    @NotEmpty
+    private String city;
+
+    @NotEmpty
+    private String street;
+
+    private Long houseNr;
+
+    private Long flatNr;
+
     private String businessName;
 }

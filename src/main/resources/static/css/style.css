@@ -99,7 +99,6 @@ main{
     list-style: none;
 }
 
-
 .text-dark-blue {
     color: var(--dark-blue);
 }
@@ -183,4 +182,13 @@ main{
 
 table {
     text-align: center;
+}
+
+.form-control {
+    border: 2px var(--dark-red) solid;
+}
+
+.form-inline > input {
+    border: 2px var(--dark-red) solid;
+    vertical-align: center;
 }

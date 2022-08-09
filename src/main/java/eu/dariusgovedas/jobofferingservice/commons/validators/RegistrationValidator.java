@@ -20,15 +20,15 @@ public class RegistrationValidator implements Validator {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailAddress", "emailAddress.required");
 
-        if (user.getEmailAddress() == null) {
+        if (user.getContactDetails().getEmailAddress() == null) {
             return;
         }
 
-        if (!user.getEmailAddress().contains("@") &&
-                !user.getEmailAddress().contains(".") &&
-                !(user.getEmailAddress().indexOf("@") < user.getEmailAddress().indexOf("."))) {
+        if (!user.getContactDetails().getEmailAddress().contains("@") &&
+                !user.getContactDetails().getEmailAddress().contains(".") &&
+                !(user.getContactDetails().getEmailAddress().indexOf("@") < user.getContactDetails().getEmailAddress().indexOf("."))) {
             errors.rejectValue("emailAddress", "emailAddress.invalid",
-                    new Object[]{user.getEmailAddress()}, null);
+                    new Object[]{user.getContactDetails().getEmailAddress()}, null);
         }
     }
 }

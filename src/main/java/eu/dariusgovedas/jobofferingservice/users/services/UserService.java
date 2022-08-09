@@ -58,8 +58,10 @@ public class UserService implements UserDetailsService {
         user.setSurname(getFormattedNameOrSurname(userDTO.getSurname()));
         user.setUsername(userDTO.getUsername());
         user.setPassword("{bcrypt}" + passwordEncoder.encode(userDTO.getPassword()));
-        user.setEmailAddress(userDTO.getEmailAddress().toLowerCase());
-        user.setPhoneNumber(getInternationalNumber(userDTO.getPhoneNumber()));
+        UserContactDetails contactDetails = new UserContactDetails();
+        contactDetails.setEmailAddress(userDTO.getEmailAddress().toLowerCase());
+        contactDetails.setPhoneNumber(getInternationalNumber(userDTO.getPhoneNumber()));
+        user.setContactDetails(contactDetails);
         user.setStatus(ACTIVE);
         if (userIsRecruiter(userDTO)) {
             return createRecruiter(user, userDTO);

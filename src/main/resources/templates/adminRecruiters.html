@@ -24,10 +24,10 @@
                     </thead>
                     <tbody>
                     <tr th:each="recruiter : ${recruiters}">
-                        <td th:text="${recruiter.name}">Namer</td>
-                        <td th:text="${recruiter.surname}">Surnamer</td>
+                        <td th:text="${recruiter.name}">Name</td>
+                        <td th:text="${recruiter.surname}">Surname</td>
                         <td th:text="${recruiter.username}">Does</td>
-                        <td th:text="*{recruiter.emailAddress}">email@mail.com</td>
+                        <td th:text="*{recruiter.contactDetails.emailAddress}">email@mail.com</td>
                         <td th:text="${recruiter.recruiter.businessName}">UAB 25</td>
                         <td>
                             <form th:action="@{/private/admin/recruiter/{username}/delete(username=${recruiter.username})}" method="post">

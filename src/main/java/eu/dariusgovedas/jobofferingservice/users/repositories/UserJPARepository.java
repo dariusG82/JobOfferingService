@@ -25,7 +25,7 @@ public interface UserJPARepository extends JpaRepository<User, String> {
 
     User findByUsernameEquals(String username);
 
-    @Query("FROM User u WHERE u.emailAddress = :email")
+    @Query("FROM User u WHERE u.contactDetails.emailAddress = :email")
     User findByEmail(@Param("email") String email);
 
     @Query("FROM User u WHERE u.username = :username")
