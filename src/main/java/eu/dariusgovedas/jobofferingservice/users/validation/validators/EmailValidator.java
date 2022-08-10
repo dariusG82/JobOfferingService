@@ -13,6 +13,7 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {
+
         return email != null &&
                 !email.trim().isEmpty() &&
                 email.contains("@") &&

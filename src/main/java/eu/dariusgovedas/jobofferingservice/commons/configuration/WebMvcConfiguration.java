@@ -22,14 +22,17 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         return new SessionLocaleResolver();
     }
 
-    public LocaleChangeInterceptor localeChangeInterceptor(){
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("lang");
+
         return localeChangeInterceptor;
     }
 
     @Bean
-    public MessageSource messageSource(){
+    public MessageSource messageSource() {
+
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:messages");
         messageSource.setDefaultEncoding("UTF-8");
@@ -45,6 +48,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Bean
     @Override
     public Validator getValidator() {
+
         LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
         localValidatorFactoryBean.setValidationMessageSource(messageSource());
 
@@ -53,6 +57,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+
         registry.addViewController("/login").setViewName("loginPage");
         registry.addRedirectViewController("/", "/public/jobs");
     }

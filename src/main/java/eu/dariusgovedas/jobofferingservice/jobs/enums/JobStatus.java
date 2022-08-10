@@ -6,6 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum JobStatus {
+
     ACTIVE("ACTIVE"),
     ACCEPTED("ACCEPTED"),
     CLOSED("CLOSED"),

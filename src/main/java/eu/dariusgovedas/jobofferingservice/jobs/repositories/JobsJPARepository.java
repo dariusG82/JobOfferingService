@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface JobsJPARepository extends JpaRepository <Job, UUID> {
+public interface JobsJPARepository extends JpaRepository<Job, UUID> {
 
     @Query("FROM Job j WHERE j.rating IS NULL AND j.freelancer IS NULL AND UPPER(j.jobTitle) LIKE %:title%")
     Page<Job> findInAvailableJobs(@Param("title") String title, Pageable pageable);

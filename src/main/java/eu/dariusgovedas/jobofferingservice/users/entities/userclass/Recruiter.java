@@ -1,7 +1,8 @@
-package eu.dariusgovedas.jobofferingservice.users.entities;
+package eu.dariusgovedas.jobofferingservice.users.entities.userclass;
 
 import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
 import eu.dariusgovedas.jobofferingservice.jobs.enums.JobStatus;
+import eu.dariusgovedas.jobofferingservice.users.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,21 +38,25 @@ public class Recruiter {
     )
     private Set<Job> jobs;
 
-    public void addJob(Job job){
+    public void addJob(Job job) {
+
         jobs.add(job);
         job.setRecruiter(this);
     }
 
-    public void removeJob(Job job){
+    public void removeJob(Job job) {
+
         jobs.remove(job);
         job.setRecruiter(null);
     }
 
-    public int getTotalJobs(){
+    public int getTotalJobs() {
+
         return jobs.size();
     }
 
-    public BigDecimal getTotalExpenses(){
+    public BigDecimal getTotalExpenses() {
+
         return jobs.stream()
                 .filter(job -> job.getStatus().equals(JobStatus.CLOSED))
                 .map(job -> job.getJobDetails().getSalary())

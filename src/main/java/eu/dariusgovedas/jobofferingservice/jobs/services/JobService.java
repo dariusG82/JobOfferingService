@@ -3,8 +3,8 @@ package eu.dariusgovedas.jobofferingservice.jobs.services;
 import eu.dariusgovedas.jobofferingservice.jobs.entities.Job;
 import eu.dariusgovedas.jobofferingservice.jobs.exceptions.JobNotFoundException;
 import eu.dariusgovedas.jobofferingservice.jobs.repositories.JobsJPARepository;
-import eu.dariusgovedas.jobofferingservice.users.entities.Freelancer;
-import eu.dariusgovedas.jobofferingservice.users.entities.Recruiter;
+import eu.dariusgovedas.jobofferingservice.users.entities.userclass.Freelancer;
+import eu.dariusgovedas.jobofferingservice.users.entities.userclass.Recruiter;
 import eu.dariusgovedas.jobofferingservice.users.entities.User;
 import eu.dariusgovedas.jobofferingservice.users.enums.RoleType;
 import lombok.AllArgsConstructor;
@@ -25,6 +25,7 @@ public class JobService {
     private final JobsJPARepository jobsRepository;
 
     public Page<Job> getJobs(User user, Pageable pageable) {
+
         if (user != null) {
             RoleType userRole = user.getRole().getName();
             switch (userRole) {
@@ -39,11 +40,14 @@ public class JobService {
                 }
             }
         }
+
         return getAvailableJobs(pageable);
     }
 
     public Page<Job> getActiveFreelancerJobs(User user, Pageable pageable) {
+
         Long id = user.getFreelancer().getId();
+
         return jobsRepository.getAcceptedJobs(id, ACCEPTED, pageable);
     }
 
@@ -61,7 +65,9 @@ public class JobService {
 
     @Transactional
     public void updateJob(Job job, UUID id) {
+
         Job oldJob = getJobById(id);
+
         oldJob.setJobTitle(job.getJobTitle());
         oldJob.setJobType(job.getJobType());
         oldJob.setDeadline(job.getDeadline());
@@ -70,25 +76,32 @@ public class JobService {
     }
 
     public Job deleteJobById(UUID id) {
+
         Job jobToDelete = getJobById(id);
+
         Recruiter recruiter = jobToDelete.getRecruiter();
         recruiter.removeJob(jobToDelete);
         Freelancer freelancer = jobToDelete.getFreelancer();
         if (freelancer != null) {
             freelancer.removeJob(jobToDelete);
         }
+
         jobsRepository.delete(jobToDelete);
+
         return jobToDelete;
     }
 
     public Job getJobById(UUID id) {
+
         return jobsRepository.findById(id)
                 .orElseThrow(() -> new JobNotFoundException("", null));
     }
 
     @Transactional
     public Job addJobToFreelancer(UUID id, User user) {
+
         Job jobToAdd = getJobById(id);
+
         jobToAdd.setFreelancer(user.getFreelancer());
         jobToAdd.setStatus(ACCEPTED);
 
@@ -117,6 +130,7 @@ public class JobService {
     }
 
     private Page<Job> getAvailableJobs(String title, Pageable pageable) {
+
         return jobsRepository.findInAvailableJobs(title.toUpperCase(), pageable);
     }
 
@@ -125,6 +139,7 @@ public class JobService {
     }
 
     private Page<Job> getRecruiterJobs(String title, Pageable pageable, User user) {
+
         return jobsRepository.findInUserJobs(title.toUpperCase(), user.getRecruiter().getId(), pageable);
     }
 
@@ -134,14 +149,16 @@ public class JobService {
 
     @Transactional
     public void finishJob(Job job, UUID id) {
+
         Job jobToRate = getJobById(id);
         jobToRate.finishJob(job.getRating());
     }
 
     public void deleteRecruiterJobs(User user) {
+
         List<Job> activeRecruiterJobs = jobsRepository.findActiveRecruiterJobs(user.getRecruiter().getId(), CLOSED);
 
-        for(Job job : activeRecruiterJobs){
+        for (Job job : activeRecruiterJobs) {
             job.setStatus(DISABLED);
             job.setFreelancer(null);
         }

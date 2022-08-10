@@ -9,15 +9,18 @@ public class UserStatusConverter implements AttributeConverter<UserStatus, Strin
 
     @Override
     public String convertToDatabaseColumn(UserStatus attribute) {
-        if(attribute == null){
+
+        if (attribute == null) {
             return null;
         }
+
         return attribute.getStatus();
     }
 
     @Override
     public UserStatus convertToEntityAttribute(String dbData) {
-        if(dbData == null){
+
+        if (dbData == null) {
             return null;
         }
 

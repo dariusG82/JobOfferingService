@@ -9,15 +9,18 @@ public class JobStatusConverter implements AttributeConverter<JobStatus, String>
 
     @Override
     public String convertToDatabaseColumn(JobStatus jobStatus) {
-        if(jobStatus == null){
+
+        if (jobStatus == null) {
             return null;
         }
+
         return jobStatus.getEnumValue();
     }
 
     @Override
     public JobStatus convertToEntityAttribute(String dbData) {
-        if(dbData == null){
+
+        if (dbData == null) {
             return null;
         }
 

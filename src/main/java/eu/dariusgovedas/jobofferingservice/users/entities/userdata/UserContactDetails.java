@@ -1,5 +1,6 @@
-package eu.dariusgovedas.jobofferingservice.users.entities;
+package eu.dariusgovedas.jobofferingservice.users.entities.userdata;
 
+import eu.dariusgovedas.jobofferingservice.users.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

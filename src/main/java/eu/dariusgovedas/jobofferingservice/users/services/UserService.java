@@ -2,6 +2,11 @@ package eu.dariusgovedas.jobofferingservice.users.services;
 
 import eu.dariusgovedas.jobofferingservice.jobs.services.JobService;
 import eu.dariusgovedas.jobofferingservice.users.entities.*;
+import eu.dariusgovedas.jobofferingservice.users.entities.userclass.Freelancer;
+import eu.dariusgovedas.jobofferingservice.users.entities.userclass.Recruiter;
+import eu.dariusgovedas.jobofferingservice.users.entities.userdata.Role;
+import eu.dariusgovedas.jobofferingservice.users.entities.userdata.UserContactDetails;
+import eu.dariusgovedas.jobofferingservice.users.entities.userdata.UserDTO;
 import eu.dariusgovedas.jobofferingservice.users.enums.UserStatus;
 import eu.dariusgovedas.jobofferingservice.users.repositories.UserJPARepository;
 import lombok.AllArgsConstructor;
@@ -29,10 +34,12 @@ public class UserService implements UserDetailsService {
     private UserJPARepository userJPARepository;
 
     public Page<User> getActiveFreelancers(UserStatus status, Pageable pageable) {
+
         return userJPARepository.getFreelancers(status, pageable);
     }
 
     public Page<User> getActiveRecruiters(UserStatus status, Pageable pageable) {
+
         return userJPARepository.getRecruiters(status, pageable);
     }
 
@@ -53,16 +60,20 @@ public class UserService implements UserDetailsService {
     }
 
     public User registerNewUser(UserDTO userDTO) {
+
         User user = new User();
         user.setName(getFormattedNameOrSurname(userDTO.getName()));
         user.setSurname(getFormattedNameOrSurname(userDTO.getSurname()));
         user.setUsername(userDTO.getUsername());
         user.setPassword("{bcrypt}" + passwordEncoder.encode(userDTO.getPassword()));
+
         UserContactDetails contactDetails = new UserContactDetails();
         contactDetails.setEmailAddress(userDTO.getEmailAddress().toLowerCase());
         contactDetails.setPhoneNumber(getInternationalNumber(userDTO.getPhoneNumber()));
         user.setContactDetails(contactDetails);
+
         user.setStatus(ACTIVE);
+
         if (userIsRecruiter(userDTO)) {
             return createRecruiter(user, userDTO);
         } else {
@@ -71,38 +82,49 @@ public class UserService implements UserDetailsService {
     }
 
     private String getFormattedNameOrSurname(String userData) {
+
         return userData.substring(0, 1).toUpperCase() + userData.substring(1).toLowerCase();
     }
 
     private String getInternationalNumber(String phoneNumber) {
+
         return phoneNumber.startsWith("86") ? "+3706" + phoneNumber.substring(2) : phoneNumber;
     }
 
     private User createRecruiter(User user, UserDTO userDTO) {
+
         Recruiter recruiter = new Recruiter();
         recruiter.setBusinessName(userDTO.getBusinessName());
         user.setRecruiter(recruiter);
+
         Role role = new Role();
         role.setName(RECRUITER);
         user.setRole(role);
+
         createUser(user);
+
         return user;
     }
 
     private User createFreelancer(User user) {
+
         Freelancer freelancer = new Freelancer();
         freelancer.setRating(BigDecimal.ZERO);
         freelancer.setJobsFinished(0);
         freelancer.setTotalIncome(BigDecimal.ZERO);
         user.setFreelancer(freelancer);
+
         Role role = new Role();
         role.setName(FREELANCER);
         user.setRole(role);
+
         createUser(user);
+
         return user;
     }
 
     private boolean userIsRecruiter(UserDTO userDTO) {
+
         return userDTO.getBusinessName() != null && !userDTO.getBusinessName().trim().isEmpty();
     }
 

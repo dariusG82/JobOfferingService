@@ -1,5 +1,9 @@
 package eu.dariusgovedas.jobofferingservice.users.entities;
 
+import eu.dariusgovedas.jobofferingservice.users.entities.userclass.Freelancer;
+import eu.dariusgovedas.jobofferingservice.users.entities.userclass.Recruiter;
+import eu.dariusgovedas.jobofferingservice.users.entities.userdata.Role;
+import eu.dariusgovedas.jobofferingservice.users.entities.userdata.UserContactDetails;
 import eu.dariusgovedas.jobofferingservice.users.enums.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

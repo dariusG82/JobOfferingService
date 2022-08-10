@@ -29,6 +29,7 @@ public class JobController {
 
         Page<Job> jobs = jobService.getJobs(user, pageable);
         model.addAttribute("jobs", jobs);
+
         return "jobs";
     }
 
@@ -37,6 +38,7 @@ public class JobController {
     public String openJobForm(Model model, @AuthenticationPrincipal User user) {
 
         model.addAttribute("job", new Job());
+
         return "jobForm";
     }
 
@@ -45,7 +47,7 @@ public class JobController {
     public String createJob(@Valid Job job, BindingResult result,
                             RedirectAttributes redirectAttributes, @AuthenticationPrincipal User user) {
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "jobForm";
         }
         jobService.createJob(job, user);
@@ -67,7 +69,7 @@ public class JobController {
     @PostMapping("/private/jobs/{id}")
     public String updateJob(@PathVariable UUID id, @Valid Job job, BindingResult result, RedirectAttributes redirectAttributes) {
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "jobForm";
         }
 
@@ -110,7 +112,7 @@ public class JobController {
 
     @PreAuthorize("hasRole('RECRUITER')")
     @PostMapping("/private/jobs/rate/{id}")
-    public String rateAndFinishJob(@PathVariable UUID id, Job job,  @AuthenticationPrincipal User user) {
+    public String rateAndFinishJob(@PathVariable UUID id, Job job, @AuthenticationPrincipal User user) {
 
         jobService.finishJob(job, id);
 
@@ -118,7 +120,7 @@ public class JobController {
     }
 
     @GetMapping("/public/jobs/search")
-    public String search(@RequestParam(required = false) String title, Pageable pageable, Model model, @AuthenticationPrincipal User user){
+    public String search(@RequestParam(required = false) String title, Pageable pageable, Model model, @AuthenticationPrincipal User user) {
 
         model.addAttribute("jobs", jobService.searchByJobTitle(title, pageable, user));
 

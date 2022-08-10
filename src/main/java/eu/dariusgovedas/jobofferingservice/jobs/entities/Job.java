@@ -1,8 +1,8 @@
 package eu.dariusgovedas.jobofferingservice.jobs.entities;
 
 import eu.dariusgovedas.jobofferingservice.jobs.enums.JobStatus;
-import eu.dariusgovedas.jobofferingservice.users.entities.Freelancer;
-import eu.dariusgovedas.jobofferingservice.users.entities.Recruiter;
+import eu.dariusgovedas.jobofferingservice.users.entities.userclass.Freelancer;
+import eu.dariusgovedas.jobofferingservice.users.entities.userclass.Recruiter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -57,6 +57,7 @@ public class Job {
     private Freelancer freelancer;
 
     public void finishJob(BigDecimal rating) {
+
         this.status = JobStatus.CLOSED;
         this.rating = rating;
     }

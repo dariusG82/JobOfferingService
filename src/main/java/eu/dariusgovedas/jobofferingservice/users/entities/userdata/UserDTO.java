@@ -1,4 +1,4 @@
-package eu.dariusgovedas.jobofferingservice.users.entities;
+package eu.dariusgovedas.jobofferingservice.users.entities.userdata;
 
 import eu.dariusgovedas.jobofferingservice.users.validation.annotations.*;
 import lombok.Getter;

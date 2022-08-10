@@ -14,7 +14,6 @@ import java.util.Properties;
 
 import static org.springframework.context.i18n.LocaleContextHolder.getLocale;
 
-
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
     @Override
     public void initialize(ValidPassword constraintAnnotation) {

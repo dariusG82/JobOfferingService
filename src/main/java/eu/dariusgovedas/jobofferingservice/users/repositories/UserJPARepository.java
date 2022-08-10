@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface UserJPARepository extends JpaRepository<User, String> {
 
     @Query("SELECT u FROM User u JOIN FETCH u.role WHERE u.username = :username AND u.status=:status")
-    Optional<User> findUserWithRoles(@Param("username") String username, @Param("status") UserStatus status );
+    Optional<User> findUserWithRoles(@Param("username") String username, @Param("status") UserStatus status);
 
     @Query("FROM User u WHERE u.recruiter IS NOT NULL AND u.status =:status")
     Page<User> getRecruiters(@Param("status") UserStatus status, Pageable pageable);

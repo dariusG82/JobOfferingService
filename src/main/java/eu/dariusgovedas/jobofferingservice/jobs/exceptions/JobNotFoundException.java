@@ -9,7 +9,7 @@ public class JobNotFoundException extends RuntimeException {
 
     private final UUID jobID;
 
-    public JobNotFoundException(String messageCode, UUID jobID){
+    public JobNotFoundException(String messageCode, UUID jobID) {
         super(messageCode);
         this.jobID = jobID;
     }

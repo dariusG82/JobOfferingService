@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
         securedEnabled = true,
         jsr250Enabled = true
 )
-public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -35,20 +35,21 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
                 .antMatchers("/private/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
-            .formLogin()
+                .formLogin()
                 .permitAll()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/")
                 .failureUrl("/login?error=login.failed")
                 .and()
-            .logout()
+                .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout");
     }
 
     @Override
     public void configure(WebSecurity web) {
+
         web.ignoring()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 .antMatchers(h2ConsoleProperties.getPath() + "/**");

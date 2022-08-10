@@ -1,4 +1,4 @@
-package eu.dariusgovedas.jobofferingservice.users.entities;
+package eu.dariusgovedas.jobofferingservice.users.entities.userdata;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +26,7 @@ public class HomeAddress {
     private Long flatNumber;
 
     public String getHomeAddress() {
+
         String houseAddress = country + ", " + city + ", " + street + " street " + houseNumber;
         if(flatNumber == null){
             return houseAddress;

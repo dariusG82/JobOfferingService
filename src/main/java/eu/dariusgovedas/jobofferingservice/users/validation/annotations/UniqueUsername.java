@@ -13,6 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = UniqueUsernameValidator.class)
 public @interface UniqueUsername {
+
     String message() default "Not unique username";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

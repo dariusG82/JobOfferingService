@@ -9,15 +9,17 @@ public class RoleTypeConverter implements AttributeConverter<RoleType, String> {
 
     @Override
     public String convertToDatabaseColumn(RoleType attribute) {
-        if(attribute == null){
+        if (attribute == null) {
             return null;
         }
+
         return attribute.getEnumValue();
     }
 
     @Override
     public RoleType convertToEntityAttribute(String dbData) {
-        if(dbData == null){
+
+        if (dbData == null) {
             return null;
         }
 
